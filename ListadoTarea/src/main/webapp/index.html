@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"><!-- comment -->
+        <style>
+            .gradient-custom-2 {
+                /* fallback for old browsers */
+                background: #fccb90;
+
+                /* Chrome 10-25, Safari 5.1-6 */
+                background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+
+                /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+            }
+
+            @media (min-width: 768px) {
+                .gradient-form {
+                    height: 100vh !important;
+                }
+            }
+            @media (min-width: 769px) {
+                .gradient-custom-2 {
+                    border-top-right-radius: .3rem;
+                    border-bottom-right-radius: .3rem;
+                }
+            }
+        </style> 
+
+    </head>
+    <body>
+
+
+        <section class="h-100 gradient-form" style="background-color: #eee;">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-xl-10">
+                        <div class="card rounded-3 text-black">
+                            <div class="row g-0">
+                                <div class="col-lg-6">
+                                    <div class="card-body p-md-5 mx-md-4">
+
+                                        <div class="text-center">
+                                            
+                                            <img src="data:image/png;base64,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"
+                                               
+                                                 style="width: 185px;" alt="logo">
+                                                   <h3 class="mt-1 mb-5 pb-1">!WORK LIST!</h3>
+                                          
+                                          
+                                       
+                                        <form>
+                                            <h4> Inicia sesión</h4>
+
+                                            <div class="form-outline mb-4">
+                                                  <label class="form-label" for="form2Example11">Usuario</label>
+                                                  <input type="email" id="form2Example11" class="form-control" required />
+                                             
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                  <label class="form-label" for="form2Example22">Contraseña</label>
+                                                <input type="password" id="form2Example22" class="form-control" required />
+                                              
+                                            </div>
+
+                                            <div class="text-center pt-1 mb-5 pb-1">
+                                                <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">Inicia sesion </button>
+                                                
+                                            </div>
+
+                                            <div class="d-flex align-items-center justify-content-center pb-4">
+                                                <p class="mb-0 me-2">¿No tienes cuenta?</p>
+                                                <button type="button" class="btn btn-outline-danger">Registrate</button>
+                                            </div>
+
+                                        </form>
+                                         </div> 
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                                    <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                        
+                                        <h4 class="mb-4">Bienvenido a la lista de Tareas</h4>
+                                        <p class="small mb-0">Buscamos que organices tu lista de tareas con la posibilidad de modificarlas y eliminarlas, registra tu correo y contraseña y luego podras iniciar sesion.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    </body>
+</html>
