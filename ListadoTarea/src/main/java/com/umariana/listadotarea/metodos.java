@@ -35,7 +35,7 @@ public class metodos {
      * @param contexto
      * @param nUsuario
      */
-    public static void registrarUsuario(ServletContext contexto,ArrayList<usuario> nUsuario){
+    public static void leerUsuario(ServletContext contexto,ArrayList<usuario> nUsuario){
         String dataPath = contexto.getRealPath("/data.txt");
         File arc = new File(dataPath);
         try {
