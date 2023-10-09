@@ -5,7 +5,12 @@
 package com.umariana.listadotarea;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.servlet.ServletContext;
@@ -44,6 +49,28 @@ public class metodos {
             System.out.println("ups hubo un error"+ e.getMessage());
         }
     }
+    public static ArrayList<usuario> cargarUsuario(ServletContext contexto) throws IOException, ClassNotFoundException{
+     
+        ArrayList<usuario> nUsuario = new ArrayList<>();
+        String p="/data.txt";
+        String dataPath= contexto.getRealPath(p);
+        File arc = new File(dataPath);
+        System.out.println("este archivo esta guardado en: " +dataPath);
+        
+        try {
+            FileInputStream in = new FileInputStream(dataPath);
+            ObjectInputStream ois = new ObjectInputStream(in);
+            
+            nUsuario = (ArrayList<usuario>) ois.readObject();
+            ois.close();
+            System.out.println("se ha leido correctamente");
+        } catch (FileNotFoundException ex) {
+            System.out.println("hubo un error al leer");
+        }
+        return nUsuario;     
+    }
+    
+            
     }
 
 
