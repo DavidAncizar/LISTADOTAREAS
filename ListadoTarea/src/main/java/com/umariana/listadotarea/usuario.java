@@ -10,17 +10,17 @@ import java.io.Serializable;
  *
  * @author cuati
  */
-public class registro implements Serializable{
+public class usuario implements Serializable{
     //declarar variables
     private String nombre;
     private String cedula;
     private String contrasenia;
 
-    public registro(){ 
+    public usuario(){ 
     
 }
 //constructor para inicializar los atributos
-    public registro(String nombre,String cedula, String contrasenia){
+    public usuario(String nombre,String cedula, String contrasenia){
         this.nombre= nombre;
         this.cedula= cedula;
         this.contrasenia = contrasenia;        
