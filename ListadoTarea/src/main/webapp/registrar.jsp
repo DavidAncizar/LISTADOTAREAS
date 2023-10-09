@@ -2,48 +2,68 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <style>
-  
-  </style>
+       <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
     </head>
     <body>
        
-<form>
-  
-  <div class="row mb-4">
-    <div class="col">
-      <div class="form-outline">
-        <input type="text" id="form3Example1" class="form-control" />
-        <label class="form-label" for="form3Example1">Nombre</label>
-      </div>
-    </div>
-    <div class="col">
-      <div class="form-outline">
-        <input type="text" id="form3Example2" class="form-control" />
-        <label class="form-label" for="form3Example2">Cedula</label>
-      </div>
-    </div>
-  </div>
+<form action="#" method="post">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
 
- 
-  <div class="form-outline mb-4">
-    <input type="password" id="form3Example4" class="form-control" />
-    <label class="form-label" for="form3Example4">Contraseña</label>
-  </div>
+        <label for="cedula">Cédula:</label>
+        <input type="text" id="cedula" name="cedula" required>
 
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
 
-  <div class="form-check d-flex justify-content-center mb-4">
-    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
-    <label class="form-check-label" for="form2Example33">
-     confirmar 
-    </label>
-  </div>
-
-  <button type="submit" class="btn btn-primary btn-block mb-4">Registrar</button>
-
-</form>
+        <button type="submit">Registrarse</button>
+    </form>
 
     </body>
 </html>
