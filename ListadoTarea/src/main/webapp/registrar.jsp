@@ -55,8 +55,13 @@
     </style>
     </head>
     <body>
+
         <--<!-- Colocamos las variables funcionales para el guardado de usuarios  -->
 <form action="SvRegis" method="POST">
+
+       
+<form action="#" method="post">
+
      <h2> Bienvenido a tu registro, porfavor completa tus datos para continuar: </h2>
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
@@ -65,8 +70,13 @@
         <input type="text" id="cedula" name="cedula" required>
 
         <label for="password">Contraseña:</label>
+
         <input type="password" id="password" name="contrasenia" required>
         
+
+        <input type="password" id="password" name="password" required>
+
+
         <button  type="submit">Registrarse</button>
     </form>
 
