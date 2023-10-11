@@ -4,14 +4,18 @@
  */
 package com.umariana.listadotarea;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletContext;
 
@@ -21,7 +25,7 @@ import javax.servlet.ServletContext;
  */
 public class metodos {
    
-    ArrayList<usuario> nUsuario = new ArrayList<>();
+    private static ArrayList<usuario> nUsuario = new ArrayList<>();
     
      public void setnUsuario(ArrayList<usuario> nUsuario) {
         this.nUsuario = nUsuario;
@@ -35,39 +39,71 @@ public class metodos {
      * @param contexto
      * @param nUsuario
      */
-    public static void leerUsuario(ServletContext contexto,ArrayList<usuario> nUsuario){
-        String dataPath = contexto.getRealPath("/data.txt");
-        File arc = new File(dataPath);
-        try {
-            FileOutputStream fw = new FileOutputStream(dataPath);
-            ObjectOutputStream pw = new ObjectOutputStream(fw);
-            pw.writeObject(nUsuario);
-            pw.close();
-            System.out.println("has cargado los datos" + dataPath);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("ups hubo un error"+ e.getMessage());
+    //Guardar usuarios creando una ruta con "relativePath"
+    public static void leerUsuario(ServletContext context, ArrayList<usuario> nUsuario) throws IOException{
+        String relativePath = "usuariosGuardados.txt";
+        // Crear una ruta global 
+        String absPath = context.getRealPath(relativePath);
+        //Variable de tipo file donde manejamos el archivo en codigo
+        File archivo = new File (absPath);
+        PrintWriter pluma = new PrintWriter (new FileWriter (archivo, true ));
+        for (usuario objUsuario: nUsuario ){
+            pluma.println("nombre" + objUsuario.getNombre());
+            pluma.println("cedula" + objUsuario.getCedula());
+            pluma.println("contraseña" + objUsuario.getContrasenia());
+           
         }
+         pluma.close();
     }
-    public static ArrayList<usuario> cargarUsuario(ServletContext contexto) throws IOException, ClassNotFoundException{
-     
-        ArrayList<usuario> nUsuario = new ArrayList<>();
-        String p="/data.txt";
-        String dataPath= contexto.getRealPath(p);
-        File arc = new File(dataPath);
-        System.out.println("este archivo esta guardado en: " +dataPath);
+    public static  void cargarUsuario(ServletContext context ) {
+     String relativePath = "/data/usuarios.txt";
+        String absPath = context.getRealPath(relativePath);
+        File archivoCargar = new File(absPath);
         
-        try {
-            FileInputStream in = new FileInputStream(dataPath);
-            ObjectInputStream ois = new ObjectInputStream(in);
-            
-            nUsuario = (ArrayList<usuario>) ois.readObject();
-            ois.close();
-            System.out.println("se ha leido correctamente");
-        } catch (FileNotFoundException ex) {
-            System.out.println("hubo un error al leer");
-        }
-        return nUsuario;     
+
+        if (archivoCargar.length()!=0) {
+            try (BufferedReader leyendo = new BufferedReader(new FileReader(archivoCargar)) ) {
+                String nombre= null;
+                String cedula=null;
+                String contrasenia=null;
+                 
+                String lineaPorlinea;
+                while ((lineaPorlinea = leyendo.readLine()) != null) {
+                    if (lineaPorlinea.startsWith("nombre:")) {
+                        nombre = lineaPorlinea.substring(lineaPorlinea.indexOf(":") + 1).trim();
+                    } else if (lineaPorlinea.startsWith("cedula:")) {
+                        cedula = lineaPorlinea.substring(lineaPorlinea.indexOf(":") + 1).trim();
+                    } else if (lineaPorlinea.startsWith("contraseña:")) {
+                        contrasenia = lineaPorlinea.substring(lineaPorlinea.indexOf(":") + 1).trim();
+
+                        // Crea un nuevo usuario y agrégalo a la lista de usuarios
+                        usuario nuevoUsuario = new usuario(nombre, cedula , contrasenia);
+                        nUsuario.add(nuevoUsuario);
+
+                        // Restablece las variables para el siguiente usuario
+                        nombre = null;
+                        cedula = null;
+                        contrasenia = null;
+                    }
+                
+            }
+         } catch (Exception e) {
+
+                e.getMessage();
+            }
+        }     
+    }
+           public static String ValidarUsuario(ServletContext context, String nombre, String contrasenia) throws IOException{
+             cargarUsuario(context);
+        
+             for (usuario objUsuario: nUsuario ) {
+              if (objUsuario.getNombre().equals(nombre) && objUsuario.getContrasenia().equals(contrasenia)) {
+                System.out.println("Se puede verificar en la consola de esta forma:" + objUsuario.getNombre());
+                return objUsuario.getNombre();
+            }
+         }
+        return null;
+                
     }
     
             

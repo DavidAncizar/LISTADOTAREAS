@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <!-- Creamos la interfaz por medio de boostrap para la pagina principal-->
     <head>
        <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,11 +49,15 @@
         button:hover {
             background-color: #45a049;
         }
+        h1{
+            text-align: center;
+        }
     </style>
     </head>
     <body>
-       
-<form action="#" method="post">
+        <--<!-- Colocamos las variables funcionales para el guardado de usuarios  -->
+<form action="SvRegis" method="POST">
+     <h2> Bienvenido a tu registro, porfavor completa tus datos para continuar: </h2>
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
 
@@ -60,9 +65,9 @@
         <input type="text" id="cedula" name="cedula" required>
 
         <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Registrarse</button>
+        <input type="password" id="password" name="contrasenia" required>
+        
+        <button  type="submit">Registrarse</button>
     </form>
 
     </body>
