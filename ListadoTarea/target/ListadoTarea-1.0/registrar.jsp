@@ -56,7 +56,7 @@
     </head>
     <body>
 
-        <--<!-- Colocamos las variables funcionales para el guardado de usuarios  -->
+        <!-- Colocamos las variables funcionales para el guardado de usuarios  -->
 <form action="SvRegis" method="POST">
 
        
@@ -73,8 +73,6 @@
 
         <input type="password" id="password" name="contrasenia" required>
         
-
-        <input type="password" id="password" name="password" required>
 
 
         <button  type="submit">Registrarse</button>

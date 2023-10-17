@@ -47,7 +47,7 @@ public class SvVerificacion extends HttpServlet {
               //Creamos el metodo en forma de String para llamar el metodo con sus parametros, van en orden 
               String usuarioNombre = metodos.ValidarUsuario( context, nombre, contrasenia);
               if(usuarioNombre!=null){
-                       System.out.println("aqui estoy ");
+                       System.out.println("El usuario ha sido identificado, bienvenido! ");
                        String script = "<script>alert('Se verificó correctamente.'); window.location.href = 'Tareas.jsp?nombre=" + usuarioNombre + "';</script>";
                        response.setContentType("text/html");
                        response.getWriter().write(script);

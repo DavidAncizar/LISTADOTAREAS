@@ -1,9 +1,6 @@
 com\umariana\listadotarea\JakartaRestConfiguration.class
 com\umariana\listadotarea\usuario.class
-<<<<<<< HEAD
 servlets\SvVerificacion.class
-=======
->>>>>>> 3ef2a547239b357b6025c404d165c6a6d0926dcc
 servlets\SvRegis.class
 com\umariana\listadotarea\metodos.class
 com\umariana\listadotarea\resources\JakartaEE8Resource.class

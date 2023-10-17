@@ -1,3 +1,6 @@
 nombretobias
 cedula123
 contraseña321
+nombre555
+cedula123
+contraseña5555
