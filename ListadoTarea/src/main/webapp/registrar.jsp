@@ -64,10 +64,10 @@
 
      <h2> Bienvenido a tu registro, porfavor completa tus datos para continuar: </h2>
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
+        <input type="text" id="username" name="nombre" required>
 
         <label for="cedula">Cédula:</label>
-        <input type="text" id="cedula" name="cedula" required>
+        <input type="text" id="username" name="cedula" required>
 
         <label for="password">Contraseña:</label>
 

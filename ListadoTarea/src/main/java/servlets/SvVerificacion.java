@@ -42,19 +42,18 @@ public class SvVerificacion extends HttpServlet {
            ServletContext context = getServletContext();
         //llamamos todos los parametros
             String nombre = request.getParameter("nombre");
+
             String contrasenia = request.getParameter("contrasenia"); 
-          
               //Creamos el metodo en forma de String para llamar el metodo con sus parametros, van en orden 
-                            
-              String uNombre = metodos.ValidarUsuario( context, nombre, contrasenia);
-              if(uNombre!=null){
+              String usuarioNombre = metodos.ValidarUsuario(nombre, contrasenia, context);
+              if(usuarioNombre!=null){
                        System.out.println("El usuario ha sido identificado, bienvenido! ");
-                       String script = "<script>alert('Se verificó correctamente.'); window.location.href = 'Tareas.jsp?nombre=" + uNombre + "';</script>";
+                       String script = "<script>alert('Se verificó correctamente.'); window.location.href = 'Tareas.jsp?nombre=" + usuarioNombre + "';</script>";
                        response.setContentType("text/html");
                        response.getWriter().write(script);
                    }else{
                        System.out.println("usuario incorrecto");
-                       String script = "<script>alert('El usuario ingresado no esta registrado'); window.location.href = 'index.jsp?nombre=" + uNombre + "';</script>";
+                       String script = "<script>alert('El usuario ingresado no esta registrado'); window.location.href = 'index.jsp?nombre=" + usuarioNombre + "';</script>";
                        response.setContentType("text/html");
                        response.getWriter().write(script);
                        
