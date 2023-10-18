@@ -10,12 +10,7 @@
 <%@include file= "diseño/header.jsp" %>
 <%String usuario = request.getParameter("usuario");%>
 
-<!-- Navegador importado de bootstrap -->
-
-
-
-
-<!-- Mensaje personalizado al ingresar -->
+<!-- header estilado -->
 
 <div class="container p-4"> 
     <div class="card text-center">
@@ -59,36 +54,34 @@
                         </div>
                     </div>
 
-                    <!-- Titulo -->
 
                     <div class="input-group">
                         <div class="input-group">
                             <formu class="form-floating">
                                 <input type="text" class="form-control" id="floatingInputValue" name="titulo" placeholder="Ingrese el Titulo" value="" required="">
                                 <label for="floatingInputValue">Titulo</label>
-                                <!-- Verificacion -->
+                                <!-- Verificar -->
                                 <div class="valid-feedback">
                                    Excelente!
                                 </div>
-                                <!-- En caso de no tener nada -->
+                                <!-- Si esta vacio -->
                                 <div class="invalid-feedback">
                                   El titulo esta vacio, ingresa uno porfavor.
                                 </div> 
                             </formu></div>
                     </div>
 
-                    <!-- Descripcion -->
-
+           
                     <div class="input-group">
                         <label for="descripcion" class="form-label">Descripción</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fa-solid fa-circle-info"></i></span>
                             <textarea class="form-control" name="descripcion" id="validationTextarea" placeholder="Required example textarea" required></textarea>
-                            <!-- Verificacion -->
+                            <!-- Verificar -->
                             <div class="valid-feedback">
                                 Excelente!
                             </div>
-                            <!-- En caso de no tener nada -->
+                            <!-- Si esta vacio -->
                             <div class="invalid-feedback">
                                 Ingresa una descripcion para entender mejor tu tarea porfavor.
                             </div> 
@@ -100,11 +93,11 @@
                         <label for="validationCustom05" class="form-label">Fecha</label>
                         <div class="input-group">
                             <input type="date" class="form-control"  name="fecha" id="validationCustom05" required>
-                            <!-- Verificacion -->
+                            <!-- Verificar -->
                             <div class="valid-feedback">
                                 Se mira bien!
                             </div>
-                            <!-- En caso de no tener nada -->
+                            <!-- Si esta vacio-->
                             <div class="invalid-feedback">
                                 La fecha esta vacia, ingresala porfavor.
                             </div> 
@@ -112,7 +105,7 @@
                          
                     </div>
 
-                    <!-- Boton centrado -->
+                    <!-- Para agregar una nueva tarea -->
                     <center>
                         <button type="submit" class="btn btn-outline-primary">Nueva Tarea</button>
                     </center>
@@ -122,11 +115,11 @@
         </div> 
 
         <div class="col-md-8">
-            <!-- poner tabla aquí-->
+            <!-- Ingresamos la tabla-->
 
             <div class="card card-body">
                 <table class="table table-striped table-hover">
-                    <!-- Primera fila -->   
+           
                     <thead>
                         <tr>
                             <th scope="col">NI Tarea</th>
