@@ -1,25 +1,15 @@
-<%-- 
-    Document   : Tareas
-    Created on : 9 oct 2023, 22:48:04
-    Author     : usuario
---%>
-
-
-
-<!-- Inclución de la plantilla de header -->
 <%@include file= "diseño/header.jsp" %>
 <%String usuario = request.getParameter("usuario");%>
-
+<link rel="stylesheet" href="style.jsp">
 <!-- header estilado -->
-
-<div class="container p-4"> 
+<div> 
     <div class="card text-center">
         <div class="card-header">
         </div>
 
         <div class="card-body">
-            <h5>Disfruta de tu estadía!, <%out.println(request.getParameter("nombre"));%></h5>
-             <a href="index.jsp" class="btn btn-outline-primary" > Cerrar sesion</a>
+            <h5>Bienvenido al listado de tareas!!, <%out.println(request.getParameter("nombre"));%></h5>
+            
         </div>
 
         <div class="card-footer text-body-secondary">
@@ -38,9 +28,8 @@
                     <!-- NUMERO DE TAREA IDENTIFICACION-->
 
                     <div class="input-group">
-                        <label for="validationCustomUsername" class="form-label">Numero identificativo de la Tarea</label>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroupPrepend"><i class="fa-solid fa-id-card"></i></span>
+                        <label for="validationCustomUsername" class="form-label">NI</label>
+                        <div class="input-group">                          
                             <input type="number" name="id" class="form-control" min="0" step="1"id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
                             
                             <!-- Verificacion -->
@@ -56,10 +45,11 @@
 
 
                     <div class="input-group">
-                        <div class="input-group">
-                            <formu class="form-floating">
+                         <label for="validationCustomUsername" class="form-label">Titulo</label>
+                        <div class="input-group">                         
+                            <formu class="form-floating">                               
                                 <input type="text" class="form-control" id="floatingInputValue" name="titulo" placeholder="Ingrese el Titulo" value="" required="">
-                                <label for="floatingInputValue">Titulo</label>
+                                
                                 <!-- Verificar -->
                                 <div class="valid-feedback">
                                    Excelente!
@@ -74,9 +64,8 @@
            
                     <div class="input-group">
                         <label for="descripcion" class="form-label">Descripción</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fa-solid fa-circle-info"></i></span>
-                            <textarea class="form-control" name="descripcion" id="validationTextarea" placeholder="Required example textarea" required></textarea>
+                        <div class="input-group">                           
+                            <textarea class="form-control" name="descripcion" id="validationTextarea" placeholder="ingrese una descripcion" required></textarea>
                             <!-- Verificar -->
                             <div class="valid-feedback">
                                 Excelente!
@@ -107,7 +96,7 @@
 
                     <!-- Para agregar una nueva tarea -->
                     <center>
-                        <button type="submit" class="btn btn-outline-primary">Nueva Tarea</button>
+                        <button type="submit" class="btn btn-outline-primary">Agregar Tarea</button>
                     </center>
                 </form>
             </div>
@@ -126,38 +115,35 @@
                             <th scope="col">Titulo</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Fecha</th>
-                            <th scope="col">Evidencia</th>
-                        </tr>
-                       
-                    </thead>
-
-            
-                  
-                        
-                    <div>
-                   
+                            <th scope="col">Operacion</th>
+                        </tr>                       
+                    </thead>                       
+                    <div>                   
                     </div>
-
-                    </tbody>
+                   </tbody>
                 </table>
             </div>
         </div>
     </div></div>
-
+<div> 
+    <div class="card text-side">
+        <div class="card-body">
+            <a href="index.jsp" class="btn btn-outline-primary" > Cerrar sesion</a>
+        </div>
+    </div>
+</div>
 <!-- Modal eliminar tarea-->
 <div class="modal fade" id="eliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <h2>¿Estás seguro de que deseas eliminar esta tarea?</h2>
+                <h2>¿Quieres eliminar la tarea?</h2>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="margin-right: 10px;">Cancelar</button>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalConfirm" onclick="eliminarTarea()">Eliminar</button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalConfirm" onclick="eliminarTarea()">Confirmar</button>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Inclución de la plantilla de footer -->
 <%@include file= "diseño/footer.jsp" %>

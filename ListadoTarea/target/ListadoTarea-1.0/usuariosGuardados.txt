@@ -1,3 +1,6 @@
 nombre: aaa
 cedula: 14124
 contraseÃ±a: aaa
+nombre: ancizar
+cedula: 456
+contraseña: 123
