@@ -40,29 +40,30 @@ public class metodos {
      * @param nUsuario
      */
     //Guardar usuarios creando una ruta con "relativePath"
-    public static void leerUsuario(ServletContext context, ArrayList<usuario> nUsuario) throws IOException{
-        String relativePath = "usuariosGuardados.txt";
+    public static void saveUsuario(ServletContext context, ArrayList<usuario> nUsuario) throws IOException{
+        String relativePath = "/data/usuariosGuardados.txt";
         // Crear una ruta global 
-        String absPath = context.getRealPath(relativePath);
+        String Path = context.getRealPath(relativePath);
         //Variable de tipo file donde manejamos el archivo en codigo
-        File archivo = new File (absPath);
+        File archivo = new File (Path);
         PrintWriter pluma = new PrintWriter (new FileWriter (archivo, true ));
         for (usuario objUsuario: nUsuario ){
-            pluma.println("nombre" + objUsuario.getNombre());
-            pluma.println("cedula" + objUsuario.getCedula());
-            pluma.println("contraseña" + objUsuario.getContrasenia());
-           
+            pluma.println("nombre: " + objUsuario.getNombre());
+            pluma.println("cedula: " + objUsuario.getCedula());
+            pluma.println("contraseña: " + objUsuario.getContrasenia());
+            
         }
          pluma.close();
+         
     }
     public static  void cargarUsuario(ServletContext context ) {
-     String relativePath = "/data/usuarios.txt";
-        String absPath = context.getRealPath(relativePath);
-        File archivoCargar = new File(absPath);
+        String relativePath = "/data/usuariosGuardados.txt";
+        String Path = context.getRealPath(relativePath);
+        File archivo = new File(Path);
         
 
-        if (archivoCargar.length()!=0) {
-            try (BufferedReader leyendo = new BufferedReader(new FileReader(archivoCargar)) ) {
+        if (archivo.length()!=0) {
+            try (BufferedReader leyendo = new BufferedReader(new FileReader(archivo)) ) {
                 String nombre= null;
                 String cedula=null;
                 String contrasenia=null;
@@ -73,17 +74,21 @@ public class metodos {
                         nombre = lineaPorlinea.substring(lineaPorlinea.indexOf(":") + 1).trim();
                     } else if (lineaPorlinea.startsWith("cedula:")) {
                         cedula = lineaPorlinea.substring(lineaPorlinea.indexOf(":") + 1).trim();
-                    } else if (lineaPorlinea.startsWith("contraseña:")) {
+                    } else if (lineaPorlinea.startsWith("contrasenia:")) {
                         contrasenia = lineaPorlinea.substring(lineaPorlinea.indexOf(":") + 1).trim();
 
                         // Crea un nuevo usuario y agrégalo a la lista de usuarios
                         usuario nuevoUsuario = new usuario(nombre, cedula , contrasenia);
                         nUsuario.add(nuevoUsuario);
-
+                        
                         // Restablece las variables para el siguiente usuario
                         nombre = null;
                         cedula = null;
-                        contrasenia = null;
+                        contrasenia = null;            
+                        System.out.println(nombre);
+                        System.out.println(cedula);
+                        System.out.println(contrasenia);
+                        System.out.println("se leyo");
                     }
                 
             }
@@ -96,10 +101,14 @@ public class metodos {
            public static String ValidarUsuario(ServletContext context, String nombre, String contrasenia) throws IOException{
              cargarUsuario(context);
         
+             
              for (usuario objUsuario: nUsuario ) {
               if (objUsuario.getNombre().equals(nombre) && objUsuario.getContrasenia().equals(contrasenia)) {
-                System.out.println("Se puede verificar en la consola de esta forma:" + objUsuario.getNombre());
+                System.out.println("Se puede verificar en la consola de esta forma:" + objUsuario.getNombre());             
                 return objUsuario.getNombre();
+                   
+               
+      
             }
          }
         return null;

@@ -78,7 +78,7 @@
 
                             <div class="text-center text-lg-start mt-4 pt-2">
                              
-                                <button type="submit" class="btn btn-primary btn-lg" href = "Tareas.jsp" class="link-danger"> Iniciar Sesion  </button>
+                                <button type="submit" class="btn btn-primary btn-lg" class="link-danger"> Iniciar Sesion  </button>
                                 <p class="small fw-bold mt-2 pt-1 mb-0">¿No tienes cuenta? <a href="registrar.jsp"
                                                                                               class="link-danger">Registrate</a></p>
                             </div>

@@ -39,29 +39,33 @@ public class SvRegis extends HttpServlet {
 
     //Almacenamos los parametros en el post por seguridad
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //llamamos los parametros de la clase usuario 
-        String nombre = request.getParameter("nombre");
-        String cedula = request.getParameter("cedula");
-        String contrasenia = request.getParameter("contrasenia");
-        //llamamos todo lo que hay en el context servlet
-        ServletContext context = getServletContext();
-        //objeto en el que llamamos todos los usuarios, creacion de objeto usando el constructor colocando todos los parametros 
-        usuario objUsuario = new usuario (nombre, cedula, contrasenia );
-        //Agregar la lista con el array que hicimos arriba
-        datosUsuario.add(objUsuario);
-        //metodo para leer los usuarios almacenados en el array
-        metodos.leerUsuario(context, datosUsuario);
-        // redireccionamos a la pagina principal despues de registrar 
-        request.getRequestDispatcher("index.jsp").forward(request, response );
-        
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    // llamamos los parámetros de la clase usuario
+    String nombre = request.getParameter("nombre");
+    String cedula = request.getParameter("cedula");
+    String contrasenia = request.getParameter("contrasenia");
+    // llamamos todo lo que hay en el context servlet
+    ServletContext context = getServletContext();
+    // objeto en el que llamamos todos los usuarios, creación de objeto usando el constructor colocando todos los parámetros
+    usuario objUsuario = new usuario(nombre, cedula, contrasenia);
+    // Agregar la lista con el array que hicimos arriba
+    datosUsuario.add(objUsuario);
+
+    // método para leer los usuarios almacenados en el array
+    metodos.saveUsuario(context, datosUsuario);
+    // redireccionamos a la página principal después de registrar
+    
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
+
+        
+        
+    
         
 
     @Override
     public String getServletInfo() {
         return "Short description";
     }
-
 }
