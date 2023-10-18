@@ -6,6 +6,7 @@
        <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuario</title>
+    <!--Hacemos un CSS unico para la interfaz de registrar -->
     <style>
         body {
             font-family: Arial, sans-serif;
