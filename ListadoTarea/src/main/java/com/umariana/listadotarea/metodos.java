@@ -25,15 +25,8 @@ import javax.servlet.ServletContext;
  */
 public class metodos {
    
-    private static ArrayList<usuario> nUsuario = new ArrayList<>();
+   public static ArrayList<usuario> nUsuario = new ArrayList<>();
     
-     public void setnUsuario(ArrayList<usuario> nUsuario) {
-        this.nUsuario = nUsuario;
-    }
-
-    public ArrayList<usuario> getnUsuario() {
-        return nUsuario;
-    }
     /**
      *
      * @param contexto
@@ -43,38 +36,38 @@ public class metodos {
     public static void leerUsuario(ServletContext context, ArrayList<usuario> nUsuario) throws IOException{
         String relativePath = "usuariosGuardados.txt";
         // Crear una ruta global 
-        String absPath = context.getRealPath(relativePath);
+        String Path = context.getRealPath(relativePath);
         //Variable de tipo file donde manejamos el archivo en codigo
-        File archivo = new File (absPath);
+        File archivo = new File (Path);
         PrintWriter pluma = new PrintWriter (new FileWriter (archivo, true ));
         for (usuario objUsuario: nUsuario ){
-            pluma.println("nombre" + objUsuario.getNombre());
-            pluma.println("cedula" + objUsuario.getCedula());
-            pluma.println("contraseña" + objUsuario.getContrasenia());
+            pluma.println("nombre: " + objUsuario.getNombre());
+            pluma.println("cedula: " + objUsuario.getCedula());
+            pluma.println("contraseña: " + objUsuario.getContrasenia());
            
         }
          pluma.close();
     }
     public static  void cargarUsuario(ServletContext context ) {
-     String relativePath = "/data/usuarios.txt";
-        String absPath = context.getRealPath(relativePath);
-        File archivoCargar = new File(absPath);
+     String relativePath =  "usuariosGuardados.txt";
+        String Path = context.getRealPath(relativePath);
+        File archivo = new File(Path);
         
 
-        if (archivoCargar.length()!=0) {
-            try (BufferedReader leyendo = new BufferedReader(new FileReader(archivoCargar)) ) {
+        if (archivo.length()!=0) {
+            try (BufferedReader br = new BufferedReader(new FileReader(archivo)) ) {
                 String nombre= null;
                 String cedula=null;
                 String contrasenia=null;
                  
-                String lineaPorlinea;
-                while ((lineaPorlinea = leyendo.readLine()) != null) {
-                    if (lineaPorlinea.startsWith("nombre:")) {
-                        nombre = lineaPorlinea.substring(lineaPorlinea.indexOf(":") + 1).trim();
-                    } else if (lineaPorlinea.startsWith("cedula:")) {
-                        cedula = lineaPorlinea.substring(lineaPorlinea.indexOf(":") + 1).trim();
-                    } else if (lineaPorlinea.startsWith("contraseña:")) {
-                        contrasenia = lineaPorlinea.substring(lineaPorlinea.indexOf(":") + 1).trim();
+                String leer;
+                while ((leer = br.readLine()) != null) {
+                    if (leer.startsWith("nombre:")) {
+                        nombre = leer.substring(leer.indexOf(":") + 1).trim();
+                    } else if (leer.startsWith("cedula:")) {
+                        cedula = leer.substring(leer.indexOf(":") + 1).trim();
+                    } else if (leer.startsWith("contraseña:")) {
+                        contrasenia = leer.substring(leer.indexOf(":") + 1).trim();
 
                         // Crea un nuevo usuario y agrégalo a la lista de usuarios
                         usuario nuevoUsuario = new usuario(nombre, cedula , contrasenia);
@@ -93,7 +86,7 @@ public class metodos {
             }
         }     
     }
-           public static String ValidarUsuario(ServletContext context, String nombre, String contrasenia) throws IOException{
+           public static String ValidarUsuario( String nombre, String contrasenia, ServletContext context ) throws IOException{
              cargarUsuario(context);
         
              for (usuario objUsuario: nUsuario ) {

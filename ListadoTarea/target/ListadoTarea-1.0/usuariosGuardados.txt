@@ -1,6 +1,3 @@
-nombretobias
-cedula123
-contraseña321
-nombre555
-cedula123
-contraseña5555
+nombre: aaa
+cedula: 14124
+contraseÃ±a: aaa
