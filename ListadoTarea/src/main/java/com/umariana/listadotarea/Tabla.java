@@ -9,20 +9,20 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-public class TareaGeneral implements Serializable {
+public class Tabla implements Serializable {
        private int ni;
     private String titulo;
     private String descripcion;
     private Date fechaVencer;
     
-    public TareaGeneral(int NI, String titulo, String descripcion, Date fechaVencer) {
+    public Tabla(int NI, String titulo, String descripcion, Date fechaVencer) {
         this.ni = ni;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fechaVencer = fechaVencer;
     }
 
-    public TareaGeneral() {
+    public Tabla() {
     }
 
     public int getNi() {

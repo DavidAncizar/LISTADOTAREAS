@@ -1,10 +1,3 @@
-<%-- 
-    Document   : Index
-    Created on : 9 oct 2023, 22:50:09
-    Author     : usuario
---%>
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 

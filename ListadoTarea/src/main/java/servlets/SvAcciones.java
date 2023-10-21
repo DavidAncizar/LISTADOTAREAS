@@ -7,8 +7,12 @@ package servlets;
 
 import com.umariana.listadotarea.MetSerializacion;
 import com.umariana.listadotarea.MetodosTabla;
+import com.umariana.listadotarea.Tabla;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
@@ -24,48 +28,69 @@ public class SvAcciones extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
 
     }
 
-    MetodosTabla Tasklist = new MetodosTabla();
+    Tabla listaTareas = new Tabla();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response){
+           
+          String nombre = request.getParameter("usuarioI");
         //Obtener el contexto del servlet
         ServletContext context = getServletContext();
-
-        System.out.println("Corriendo metodo de eliminar");
-        
         try {
-            Tasklist = MetSerializacion.leerTareas(context);
+            listaTareas = MetSerializacion.leerTareas(context);
+            if(listaTareas == null){
+                listaTareas = new Tabla();
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SvAcciones.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // Obtiene el nombre de la tarea que se elimina
-        String niEliminar = request.getParameter("Ni");
+        // Recibir los parámetros del formulario
+        int ni = Integer.parseInt(request.getParameter("ni"));
+        String titulo = request.getParameter("titulo");
+        String descripcion = request.getParameter("descripcion");
+        String fechaVencer = request.getParameter("fecha");
 
-        System.out.println(niEliminar);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha = null;
 
-        int eliminar = Integer.parseInt(niEliminar);
+        try {
+            fecha = sdf.parse(fechaVencer);
+        } catch (ParseException e) {
+            e.printStackTrace(); // Manejo de error en caso de que la fecha no sea válida
+        };
+        
+        String an="";
+        
+        if(!listaTareas.existenNi(ni)){
+            Tabla nuevaTarea = new Tabla(ni, titulo, descripcion, fecha);
 
-          Tasklist.descartarTarea(eliminar);
+            listaTareas.insertarPrincipio(nuevaTarea);
 
-        MetSerializacion.ingresarArchivo(Tasklist, context);
+            MetSerializacion.ingresarArchivo(listaTareas, context);
+            
+            listaTareas.mostrarTareas();
+            an="si";
+        } else {
+            an="no";
+        }
 
+
+        // Redireccionar a la página de destino internamente en el servidor
             // Redireccionar a la página de destino
-            response.sendRedirect("Tareas.jsp");
-
+            response.sendRedirect("Tareas.jsp?usuarioI="+nombre+"&add="+an);
     }
+    
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
    

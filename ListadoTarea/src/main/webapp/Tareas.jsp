@@ -16,10 +16,12 @@
     <div class="card text-center">
         <div class="card-header">
         </div>
-
+        
         <div class="card-body">
             <h5>Bienvenido al listado de tareas!!, <%out.println(request.getParameter("nombre"));%></h5>
-            
+            <div class="card text-side">
+              <a href="index.jsp" class="btn btn-outline-primary" > Cerrar sesion</a>
+        </div>  
         </div>
 
         <div class="card-footer text-body-secondary">
@@ -33,7 +35,7 @@
     <div class="row">
         <div class="col-md-4">  
             <div class="card card-body">
-                <form class="row g-3 needs-validation" action="SvVerificacion" method="GET" novalidate >
+                <form class="row g-3 needs-validation" action="Tareas.jsp" method="GET" novalidate >
                     
                     <!-- NUMERO DE TAREA IDENTIFICACION-->
 
@@ -131,6 +133,7 @@
                      <!-- Se coloca el contenido de la tabla -->
                     <tbody>
                         <%
+                            
                             MetodosTabla listaTareas = new MetodosTabla();
                             // Obtener el contexto del servlet
                             ServletContext context = getServletContext();
@@ -166,13 +169,7 @@
         </div>
     </div>
 </div>  
-      <div> 
-    <div class="card text-side">
-        <div class="card-body">
-            <a href="index.jsp" class="btn btn-outline-primary" > Cerrar sesion</a>
-        </div>
-    </div>
-</div>
+     
       <!--<!-- Implementamos lenguaje JavaSCript para utilizar el required de diferente forma -->
 <script>
     // Función de flecha que se ejecuta inmediatamente.

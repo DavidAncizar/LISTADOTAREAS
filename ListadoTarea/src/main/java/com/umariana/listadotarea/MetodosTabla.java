@@ -11,16 +11,16 @@ public class MetodosTabla implements Serializable {
     private Nodo cabeza;
     //Creamos la clase del mismo Nodo
     private class Nodo implements Serializable {
-        public TareaGeneral tareaG;
+        public Tabla tareaG;
     public Nodo siguiente = null;
     
-    public Nodo(TareaGeneral tareaG){
+    public Nodo(Tabla tareaG){
         this.tareaG = tareaG;  
     }
   
     }
     //Clase para la cabezera del Nodo
-       public void InicioNodo(TareaGeneral tareaG) {
+       public void InicioNodo(Tabla tareaG) {
         Nodo nodo = new Nodo(tareaG);
         nodo.siguiente = cabeza;
         cabeza = nodo;
@@ -30,7 +30,7 @@ public class MetodosTabla implements Serializable {
         Nodo Presente = cabeza;
         int longitud = 0;
         while (Presente  != null) {
-            TareaGeneral tareaG = Presente.tareaG;
+            Tabla tareaG = Presente.tareaG;
             longitud = longitud + 1;
             Presente  = Presente .siguiente;
         }
@@ -69,7 +69,7 @@ public class MetodosTabla implements Serializable {
         Nodo Presente  = cabeza;
         //Imprimimos cada variable y el mientras es para especificar que cuando muestre, solo sea en el caso en que el nodo no este vacio
         while (Presente  != null) {
-            TareaGeneral tareaG = Presente.tareaG;
+            Tabla tareaG = Presente.tareaG;
             System.out.println("NI: " + tareaG.getNi());
             System.out.println("Título: " + tareaG.getTitulo());
             System.out.println("Descripción: " + tareaG.getDescripcion());
@@ -84,7 +84,7 @@ public class MetodosTabla implements Serializable {
         Nodo Presente = cabeza;
 
         while (Presente != null) {
-            TareaGeneral tareaG = Presente.tareaG;
+            Tabla tareaG = Presente.tareaG;
             tablaHTML.append("<tr>");
             tablaHTML.append("<td>").append(tareaG.getNi()).append("</td>");
             tablaHTML.append("<td>").append(tareaG.getTitulo()).append("</td>");

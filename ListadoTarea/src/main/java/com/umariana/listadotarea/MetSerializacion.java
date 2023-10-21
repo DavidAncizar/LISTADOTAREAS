@@ -31,8 +31,8 @@ public class MetSerializacion {
         }
     }
 
-    public static MetodosTabla leerTareas(ServletContext context) throws IOException, ClassNotFoundException {
-        MetodosTabla tasks = null;
+    public static Tabla leerTareas(ServletContext context) throws IOException, ClassNotFoundException {
+        Tabla listaTareas = null;
         // Ruta relativa y absoluta del archivo de datos serializados
         String rutaRelativa = "/data/NuevasTareas.ser";
         String rutaAbsoluta = context.getRealPath(rutaRelativa);
@@ -41,7 +41,7 @@ public class MetSerializacion {
         if (archivo.exists() && archivo.isFile()) {
             try (FileInputStream ola = new FileInputStream(archivo); ObjectInputStream bb = new ObjectInputStream(ola)) {
                 // Leer y deserializar la lista enlazada desde el archivo
-              tasks = (MetodosTabla) bb.readObject();
+              listaTareas = (Tabla)    bb.readObject();
               //Agregamos excepciones
             } catch (EOFException e) {  
                 System.out.println("El archivo no contiene ninguna información.");
@@ -52,7 +52,7 @@ public class MetSerializacion {
             System.out.println("No hay ningun archivo de datos.");
         }
 
-        return tasks;
+        return listaTareas;
     }
 
 }
