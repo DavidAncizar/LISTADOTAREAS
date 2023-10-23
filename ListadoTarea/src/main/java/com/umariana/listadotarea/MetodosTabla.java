@@ -174,7 +174,7 @@ public class MetodosTabla implements Serializable {
 
         return tablaHTML.toString();
     }
- public boolean idExistente (int ni) {
+ public boolean niExistente (int ni) {
         Nodo actual = cabeza;
         boolean encontrado = false;
         while (actual != null && !encontrado) {
@@ -189,6 +189,7 @@ public class MetodosTabla implements Serializable {
 
         return encontrado;
     }
+
     public void tituloEdit(int ni, String titulo) {
          Nodo actual = cabeza;
         boolean encontrado = false;
@@ -199,7 +200,6 @@ public class MetodosTabla implements Serializable {
                 tareaG.setTitulo(titulo);
                 encontrado = true;
             }
-
             actual = actual.siguiente;
         }
 

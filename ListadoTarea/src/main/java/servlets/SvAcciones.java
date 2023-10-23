@@ -34,7 +34,7 @@ public class SvAcciones extends HttpServlet {
        
     }
 
-    Tabla tareasHechas = new Tabla();
+   
     //FALTA ARREGLAR DO GET
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -45,32 +45,68 @@ public class SvAcciones extends HttpServlet {
         
         System.out.println("Eliminacion en proceso...");
        try {
-            tareasHechas = MetSerializacion.leerTareas(context);
+          instancia = MetSerializacion.lecturaTarea(context);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SvAcciones.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // Obtiene el nombre del perro a eliminar desde los parámetros de la solicitud
-        String niEliminar = request.getParameter("niEliminacion");
+       
+        String niEliminar = request.getParameter("ni");
 
-        System.out.println(idEliminar);
+        System.out.println(niEliminar);
 
-        int eliminar = Integer.parseInt(idEliminar);
+        int eliminar = Integer.parseInt(niEliminar);
 
-        tareasHechas
+        instancia.descartarTarea(eliminar);
 
         MetSerializacion.ingresarArchivo(instancia, context);
 
             // Redireccionar a la página de destino
-        response.sendRedirect("login.jsp?usuarioI=" + request.getParameter("usuarioI"));
+        response.sendRedirect("Tareas.jsp?usuario=" );
 
     }
-    
-
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        ServletContext context = getServletContext();
+        String nombre = request.getParameter("usuario");
+        
+        try {
+            instancia = MetSerializacion.lecturaTarea(context);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SvAcciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String edit = request.getParameter("edicion");
+        int ni=Integer.parseInt( request.getParameter("niEdicion"));
+        
+        switch(edit){
+            case"newtitule":
+                String titulo = request.getParameter("tituloNuevo"); 
+                instancia.tituloEdit(ni, titulo);
+                break;
+            case "newdesc":
+                String descripcion = request.getParameter("descripcionNueva"); 
+               instancia.descripcionEdit(ni, descripcion);
+                break;
+            case "newfecha":
+                String fechaStr = request.getParameter("fechaNueva");
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date fecha = null;
+
+                try {
+                    fecha = sdf.parse(fechaStr);
+                } catch (ParseException e) {
+                    e.printStackTrace(); // Manejo de error en caso de que la fecha no sea válida
+                };
+                instancia.fechaEdit(ni, fecha);
+                break;
+        }
+                
+        MetSerializacion.ingresarArchivo(instancia, context);
+        
+        response.sendRedirect("Tareas.jsp?usuario="+nombre);
         
     }
 
