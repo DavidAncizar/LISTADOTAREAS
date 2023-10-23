@@ -219,7 +219,7 @@
 
         // Realiza una solicitud AJAX al servlet 'SvEliminarEditar' para eliminar la tarea
         $.ajax({
-            url: 'SvAcciones?id=' + niTarea, // URL del servlet con el parámetro 'id' para la eliminación
+            url: 'SvAcciones?ni=' + niTarea, // URL del servlet con el parámetro 'id' para la eliminación
             method: 'GET', // Método HTTP utilizado para la solicitud (GET en este caso)
             success: function (data) {
                 // En caso de éxito en la solicitud:
