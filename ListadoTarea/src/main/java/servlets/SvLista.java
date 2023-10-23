@@ -57,7 +57,7 @@ public class SvLista extends HttpServlet {
 protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String nombre = request.getParameter("usuarioI");
+        String nombre = request.getParameter("usuario");
         
         //Obtener el contexto del servlet
         ServletContext context = getServletContext();
