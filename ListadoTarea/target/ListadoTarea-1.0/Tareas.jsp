@@ -138,7 +138,7 @@
                             // Obtener el contexto del servlet
                             ServletContext context = getServletContext();
 
-                            listaTareas = MetSerializacion.leerTareas(context);
+                            listaTareas = MetSerializacion.lecturaTarea(context);
                             if (listaTareas == null) {
                                 listaTareas = new MetodosTabla();
                             }
