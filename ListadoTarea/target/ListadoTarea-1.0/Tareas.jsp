@@ -134,16 +134,16 @@
                     <tbody>
                         <%
                             
-                            MetodosTabla listaTareas = new MetodosTabla();
+                            MetodosTabla instancia = new MetodosTabla();
                             // Obtener el contexto del servlet
                             ServletContext context = getServletContext();
 
-                            listaTareas = MetSerializacion.lecturaTarea(context);
-                            if (listaTareas == null) {
-                                listaTareas = new MetodosTabla();
+                            instancia = MetSerializacion.lecturaTarea(context);
+                            if (instancia  == null) {
+                                instancia  = new MetodosTabla();
                             }
 
-                            String tablaHTML = listaTareas.TablaCreada();
+                            String tablaHTML = instancia.TablaCreada();
                         %>
 
                     <div>    
@@ -219,7 +219,7 @@
 
         // Realiza una solicitud AJAX al servlet 'SvEliminarEditar' para eliminar la tarea
         $.ajax({
-            url: 'SvAcciones?ni=' + niTarea, // URL del servlet con el parámetro 'id' para la eliminación
+            url: 'SvAcciones?ni=' + niTarea, // URL del servlet con el parámetro 'ni' para la eliminación
             method: 'GET', // Método HTTP utilizado para la solicitud (GET en este caso)
             success: function (data) {
                 // En caso de éxito en la solicitud:
