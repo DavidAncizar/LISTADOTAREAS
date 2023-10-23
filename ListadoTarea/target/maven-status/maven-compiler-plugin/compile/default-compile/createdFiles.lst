@@ -1,0 +1,10 @@
+servlets\SvLista.class
+com\umariana\listadotarea\usuario.class
+com\umariana\listadotarea\MetodosTabla$Nodo.class
+servlets\SvVerificacion.class
+com\umariana\listadotarea\metodos.class
+com\umariana\listadotarea\JakartaRestConfiguration.class
+servlets\SvAcciones.class
+servlets\SvRegis.class
+com\umariana\listadotarea\MetSerializacion.class
+com\umariana\listadotarea\resources\JakartaEE8Resource.class

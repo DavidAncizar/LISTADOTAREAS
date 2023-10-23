@@ -26,14 +26,7 @@ public class MetodosTabla implements Serializable {
         Nodo nodo = new Nodo(tareaG);
         nodo.siguiente = cabeza;
         cabeza = nodo;
-    }
-        public void finalNodo(Tabla tarea) {
-        Nodo nodo = new Nodo(tarea);
-        nodo.siguiente = cabeza;
-        cabeza = nodo;
-    }
-    
-       
+    }      
       //Creamos un metodo para establecer un valor a cabeza y agregar el ultimo dato ingresado a el nodo  
     public void finalIngreso(Tabla tarea) {
         Nodo nodo = new Nodo(tarea);
@@ -55,7 +48,7 @@ public class MetodosTabla implements Serializable {
         Nodo actual = cabeza;
 
         while (actual != null) {
-            if (actual.tareaG.getNi().equals(anteriorNi)) {
+            if (actual.tareaG.getNi() == anteriorNi) {
                 newNodo.siguiente = actual.siguiente;
                 actual.siguiente = newNodo;
                 return; 
@@ -66,7 +59,7 @@ public class MetodosTabla implements Serializable {
    
    
     //Metodo que actualiza el nodo y el ni de las tareas registradas
-    public void finalAntes int anteriorNi, Tabla newTask) {
+    public void finalAntes (int anteriorNi, Tabla newTask) {
         Nodo newNodo = new Nodo(newTask);
 
         if (cabeza == null) {
@@ -75,7 +68,7 @@ public class MetodosTabla implements Serializable {
             return;
         }
         
-        if (cabeza.tareaG.getNi().equals(anteriorNi)) {
+        if (cabeza.tareaG.getNi()== anteriorNi) {
            
             newNodo.siguiente = cabeza;
             cabeza = newNodo;
@@ -88,8 +81,8 @@ public class MetodosTabla implements Serializable {
         while (actual != null) {
             if (actual.tareaG.getNi() == anteriorNi) {
            
-                anterior.siguiente = nuevoNodo;
-                nuevoNodo.siguiente = actual;
+                anterior.siguiente = newNodo;
+                newNodo.siguiente = actual;
                 return;
             }
             anterior = actual;
@@ -112,7 +105,7 @@ public class MetodosTabla implements Serializable {
     public void descartarTarea(int ni) {
         if (cabeza != null) {
             // Se elimina la primera tarea
-            if (cabeza.tareaG.getNi().equals(ni)) {
+            if (cabeza.tareaG.getNi()== ni) {
                 Nodo primer = cabeza;
                 cabeza = cabeza.siguiente;
                 primer.siguiente = null;
@@ -124,7 +117,7 @@ public class MetodosTabla implements Serializable {
             Nodo Presente  = cabeza.siguiente;
 
             while (Presente != null) {
-                if (Presente.tareaG.getNi().equals(ni)) {
+                if (Presente.tareaG.getNi()==ni) {
                     // Se hace el recorrido para entender la tarea
                     anterior.siguiente = Presente.siguiente;
                     Presente .siguiente = null;
@@ -180,7 +173,7 @@ public class MetodosTabla implements Serializable {
         while (actual != null && !encontrado) {
 
             Tabla tareaG = actual.tareaG;
-            if (tareaG.getNi().equals(ni)) {
+            if (tareaG.getNi()==ni) {
                 encontrado = true;
             }
 
@@ -196,7 +189,7 @@ public class MetodosTabla implements Serializable {
         while (actual != null && !encontrado) {
 
             Tabla tareaG = actual.tareaG;
-            if (tareaG.getNi().equals(ni)) {
+            if (tareaG.getNi()== ni) {
                 tareaG.setTitulo(titulo);
                 encontrado = true;
             }
@@ -210,7 +203,7 @@ public class MetodosTabla implements Serializable {
         while (actual != null && !encontrado) {
 
             Tabla tareaG = actual.tareaG;
-            if (tareaG.getNi().equals(ni)) {
+            if (tareaG.getNi()== ni) {
                 tareaG.setDescripcion(descripcion);
                 encontrado = true;
             }
@@ -225,7 +218,7 @@ public class MetodosTabla implements Serializable {
         while (actual != null && !encontrado) {
 
            Tabla tareaG = actual.tareaG;
-            if (tareaG.getNi().equals(ni)) {
+            if (tareaG.getNi()== ni) {
                 tareaG.setFechaVencer(fecha);
                 encontrado = true;
             }
