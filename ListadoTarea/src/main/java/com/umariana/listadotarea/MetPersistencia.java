@@ -33,4 +33,35 @@ public class MetPersistencia {
         }
     
 }
+          public static void lecturaArchivo (ArrayList<usuario> nUsuario, ServletContext context) throws FileNotFoundException, IOException {
+
+        // Ubicación del archivo de datos
+        String rutaRelativa = "/data/usuariosRegistrados.txt";
+        String rutaAbsoluta = context.getRealPath(rutaRelativa);
+        File archivo = new File(rutaAbsoluta);
+
+        try (FileReader fr = new FileReader(archivo); BufferedReader lector = new BufferedReader(fr)) {
+
+            String linea;
+            // Leer cada línea del archivo y procesar los datos
+
+            while ((linea = lector.readLine()) != null) {
+                String[] datos = linea.split(";");
+                //funcion para saltar de espacio, el trim se usa para evitar problemas de escritura con espacios
+                String cedula = datos[0].trim();
+                String nombre = datos[1].trim();
+                String contrasenia = datos[2].trim();
+
+                // Se crea y se enlista los datos ingresados
+                usuario usuario = new usuario(cedula , nombre, contrasenia);
+                nUsuario.add(usuario);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("No se ha econtrado ningun archivo con los datos :(.");
+        } catch (IOException e) {
+            System.out.println("Vaya, parece que ocurrio un error en la lectura de datos!");
+        }
+    }
+
 }

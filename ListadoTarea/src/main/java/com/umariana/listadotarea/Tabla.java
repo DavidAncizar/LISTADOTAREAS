@@ -10,12 +10,12 @@ import java.util.Date;
 
 
 public class Tabla implements Serializable {
-       private int ni;
+       private String ni;
     private String titulo;
     private String descripcion;
     private Date fechaVencer;
     
-    public Tabla(int NI, String titulo, String descripcion, Date fechaVencer) {
+    public Tabla(String ni , String titulo, String descripcion, Date fechaVencer) {
         this.ni = ni;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -25,11 +25,11 @@ public class Tabla implements Serializable {
     public Tabla() {
     }
 
-    public int getNi() {
+    public String getNi() {
         return ni;
     }
 
-    public void setNi(int ni) {
+    public void setNi(String ni) {
         this.ni = ni;
     }
 

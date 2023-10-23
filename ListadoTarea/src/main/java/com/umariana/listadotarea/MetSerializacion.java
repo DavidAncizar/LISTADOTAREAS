@@ -24,7 +24,7 @@ public class MetSerializacion {
         File archivo = new File(rutaFinal);
 
         try (FileOutputStream bx = new FileOutputStream(archivo); ObjectOutputStream bc = new ObjectOutputStream(bx)) {
-            // Serializar y escribir la lista enlazada en el archivo
+            // Aqui se realiza la serializacion y se escriben los datos
             bc.writeObject(listaTareas);
         } catch (IOException e) {
             System.out.println("Los archivos del texto no han sido registrados");
@@ -34,13 +34,13 @@ public class MetSerializacion {
     public static Tabla leerTareas(ServletContext context) throws IOException, ClassNotFoundException {
         Tabla listaTareas = null;
         // Ruta relativa y absoluta del archivo de datos serializados
-        String rutaRelativa = "/data/NuevasTareas.ser";
-        String rutaAbsoluta = context.getRealPath(rutaRelativa);
-        File archivo = new File(rutaAbsoluta);
+        String rutaTareas= "/data/NuevasTareas.ser";
+        String rutaFinal = context.getRealPath(rutaTareas);
+        File archivo = new File(rutaFinal);
 
         if (archivo.exists() && archivo.isFile()) {
             try (FileInputStream ola = new FileInputStream(archivo); ObjectInputStream bb = new ObjectInputStream(ola)) {
-                // Leer y deserializar la lista enlazada desde el archivo
+                // Aqui se deserializa y hace lectible los datos
               listaTareas = (Tabla)    bb.readObject();
               //Agregamos excepciones
             } catch (EOFException e) {  

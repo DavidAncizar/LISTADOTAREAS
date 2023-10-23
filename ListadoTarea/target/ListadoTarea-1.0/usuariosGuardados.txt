@@ -10,3 +10,6 @@ contraseña: 123
 nombre: parra
 cedula: 33
 contraseña: 123
+nombre: 999
+cedula: 999
+contraseÃ±a: 999
