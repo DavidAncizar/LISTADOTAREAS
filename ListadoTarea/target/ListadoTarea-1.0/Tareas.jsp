@@ -161,10 +161,12 @@
         <div class="modal-content">
             <div class="modal-body">
                 <h2>Al aceptar, eliminarás permanentemente esta Tarea, ¿Estás Seguro?</h2>
-            </div>
+                <form action ="SvAcciones" method ="GET"
+            
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="margin-right: 10px;">Cancelar</button>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalConfirm" onclick="descartarTarea()"> Borrar</button>
+                </div>
             </div>
         </div>
     </div>

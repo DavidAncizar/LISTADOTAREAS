@@ -49,9 +49,10 @@ public class SvAcciones extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SvAcciones.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+       
        
         String niEliminar = request.getParameter("ni");
+        String usuario = request.getParameter("usuario");
 
         System.out.println(niEliminar);
 
@@ -62,7 +63,7 @@ public class SvAcciones extends HttpServlet {
         MetSerializacion.ingresarArchivo(instancia, context);
 
             // Redireccionar a la página de destino
-        response.sendRedirect("Tareas.jsp?usuario=" );
+        response.sendRedirect("Tareas.jsp?usuario="+usuario);
 
     }
     @Override
@@ -90,13 +91,13 @@ public class SvAcciones extends HttpServlet {
                instancia.descripcionEdit(ni, descripcion);
                 break;
             case "newfecha":
-                String fechaStr = request.getParameter("fechaNueva");
+                String fechaEdicion = request.getParameter("fechaNueva");
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date fecha = null;
 
                 try {
-                    fecha = sdf.parse(fechaStr);
+                    fecha = sdf.parse(fechaEdicion);
                 } catch (ParseException e) {
                     e.printStackTrace(); // Manejo de error en caso de que la fecha no sea válida
                 };

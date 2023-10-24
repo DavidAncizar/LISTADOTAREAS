@@ -18,7 +18,7 @@ import javax.servlet.ServletContext;
 public class MetSerializacion {
      public static void ingresarArchivo(MetodosTabla tareasHechas, ServletContext context) throws FileNotFoundException, IOException {
         // Ingresamos la ruta la cual se va a colocar los archivos ingresados
-        String rutaTareas= "NuevasTareas.txt";
+        String rutaTareas= "/datos/tareasAgregadas.ser";
         String rutaFinal= context.getRealPath(rutaTareas);
         //Creamos el file para ingresar los datos 
         File archivo = new File(rutaFinal);
@@ -34,7 +34,7 @@ public class MetSerializacion {
     public static MetodosTabla lecturaTarea(ServletContext context) throws IOException, ClassNotFoundException {
          MetodosTabla tareasHechas = null;
         // Ruta relativa y absoluta del archivo de datos serializados
-        String rutaTareas= "NuevasTareas.txt";
+        String rutaTareas= "/datos/tareasAgregadas.ser";
         String rutaFinal = context.getRealPath(rutaTareas);
         File archivo = new File(rutaFinal);
 

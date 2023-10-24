@@ -1,0 +1,3 @@
+nombre: 777
+cedula: 34525
+contraseña: 777
