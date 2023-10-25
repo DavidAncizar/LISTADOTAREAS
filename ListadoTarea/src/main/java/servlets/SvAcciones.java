@@ -5,7 +5,7 @@
 package servlets;
 
 
-import com.umariana.listadotarea.MetSerializacion;
+
 import com.umariana.listadotarea.MetodosTabla;
 import com.umariana.listadotarea.Tabla;
 import java.io.IOException;
@@ -76,8 +76,8 @@ public class SvAcciones extends HttpServlet {
         String descripcion = request.getParameter("descripcion");
         String fechaVencer = request.getParameter("fecha");
         String posicion = request.getParameter("posicion"); // Obtén el valor del radio button
-        String idAntesDe = request.getParameter("idAntesDe"); // Obtén la id antes de la cual agregar
-        String idDespuesDe = request.getParameter("idDespuesDe"); // Obtén la id después de la cual agregar
+        String niAntesDe = request.getParameter("idAntesDe"); // Obtén la id antes de la cual agregar
+        String niDespuesDe = request.getParameter("idDespuesDe"); // Obtén la id después de la cual agregar
 
         // Realizar el cast de la fecha
         Date fechaVencimiento = null;
@@ -119,18 +119,18 @@ public class SvAcciones extends HttpServlet {
                         listaTareas.agregarFinal(nuevaTarea);
                         break;
                     case "antesDe":
-                        if (idAntesDe != null && !idAntesDe.isEmpty()) {
+                        if (niAntesDe != null && !niAntesDe.isEmpty()) {
                             // Agregar la tarea antes de la tarea con la ID especificada
-                            listaTareas.agregarAntes(Integer.parseInt(idAntesDe), nuevaTarea);
+                            listaTareas.agregarAntes(Integer.parseInt(niAntesDe), nuevaTarea);
                         } else {
                             // Si no se proporciona una ID antes de la cual agregar, agregar al comienzo
                             listaTareas.inicioNodo(nuevaTarea);
                         }
                         break;
                     case "despuesDe":
-                        if (idDespuesDe != null && !idDespuesDe.isEmpty()) {
+                        if (niDespuesDe != null && !niDespuesDe.isEmpty()) {
                             // Agregar la tarea después de la tarea con la ID especificada
-                            listaTareas.agregarDespues(Integer.parseInt(idDespuesDe), nuevaTarea);
+                            listaTareas.agregarDespues(Integer.parseInt(niDespuesDe), nuevaTarea);
                         } else {
                             // Si no se proporciona una ID después de la cual agregar, agregar al final
                             listaTareas.agregarFinal(nuevaTarea);
