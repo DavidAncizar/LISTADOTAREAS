@@ -87,15 +87,14 @@ public class metodos {
     }
     }
      public static String ValidarUsuario( String nombre, String contrasenia, ServletContext context ) throws IOException{
-              cargarUsuario(context);
+              metodos.cargarUsuario(context, nUsuario);
               for (usuario objUsuario: nUsuario ) {
               if (objUsuario.getNombre().equals(nombre) && objUsuario.getContrasenia().equals(contrasenia)) {
                 System.out.println("Se puede verificar en la consola de esta forma:" + objUsuario.getNombre());
                 return objUsuario.getNombre();
+              }            
               }
-              return null;
-              
-              }
+       return null;
 }
 }           
           
