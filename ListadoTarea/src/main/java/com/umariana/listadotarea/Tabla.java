@@ -5,12 +5,12 @@
  */
 
 package com.umariana.listadotarea;
-import java.io.Serializable;
+
 import java.util.Date;
 
 
-public class Tabla implements Serializable {
-       private int ni;
+public class Tabla {
+    private int ni;
     private String titulo;
     private String descripcion;
     private Date fechaVencer;
