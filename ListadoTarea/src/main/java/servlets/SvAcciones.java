@@ -5,152 +5,111 @@
 package servlets;
 
 
+import com.umariana.listadotarea.MetSerializacion;
 import com.umariana.listadotarea.MetodosTabla;
 import com.umariana.listadotarea.Tabla;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 
 @WebServlet(name = "SvAcciones", urlPatterns = {"/SvAcciones"})
 public class SvAcciones extends HttpServlet {
  //Creamos una instancia para llamar los metodos de la clase "MetodosTabla" que no sean tipo Static.
-   private MetodosTabla listaTareas;
+        MetodosTabla instancia = new MetodosTabla ();
+        
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+       
+    }
 
-    @Override
-    public void init() throws ServletException {
-     try {
-         // Inicializa la lista de tareas al cargar el servlet
-         listaTareas = MetodosTabla.leerTarea(getServletContext());
-     } catch (ParseException ex) {
-         Logger.getLogger(SvAcciones.class.getName()).log(Level.SEVERE, null, ex);
-     }
-    } 
+   
     //FALTA ARREGLAR DO GET
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
-           String tipo = request.getParameter("tipo");
-        if (tipo != null && tipo.equals("delete")) {
-            String niToDelete = request.getParameter("ni");
-            if (niToDelete != null && !niToDelete.isEmpty()) {
-                HttpSession session = request.getSession();
-                MetodosTabla listaTareas = (MetodosTabla) session.getAttribute("listaTareas");
-
-                if (listaTareas != null) {
-                    try {
-                        int ni = Integer.parseInt(niToDelete);
-                        listaTareas.eliminarTarea(ni);
-                        // Guarda la lista actualizada en el archivo
-                        MetodosTabla.guardarTarea(listaTareas, getServletContext());
-
-                        // Agrega un atributo para indicar la eliminación exitosa
-                        session.setAttribute("tareaEliminada", true);
-                    } catch (NumberFormatException e) {
-                        // Maneja la excepción si no se proporciona un ID válido
-                        e.printStackTrace();
-                    }
-                }
-            }
+           
+          
+        //Obtener el contexto del servlet
+        ServletContext context = getServletContext();
+        
+        System.out.println("Eliminacion en proceso...");
+       try {
+          instancia = MetSerializacion.lecturaTarea(context);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SvAcciones.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // Después de eliminar una tarea con éxito en tu servlet
-        response.sendRedirect("Tareas.jsp");
+       
+       
+        String niEliminar = request.getParameter("ni");
+        String usuario = request.getParameter("usuario");
+
+        System.out.println(niEliminar);
+
+        int eliminar = Integer.parseInt(niEliminar);
+
+        instancia.descartarTarea(eliminar);
+
+        MetSerializacion.ingresarArchivo(instancia, context);
+
+            // Redireccionar a la página de destino
+        response.sendRedirect("Tareas.jsp?usuario="+usuario);
+
     }
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String ni = request.getParameter("ni");
-        String titulo = request.getParameter("titulo");
-        String descripcion = request.getParameter("descripcion");
-        String fecha = request.getParameter("fecha");
-        String posicion = request.getParameter("posicion"); // Obtén el valor del radio button
-        String idAntesDe = request.getParameter("idAntesDe"); // Obtén la id antes de la cual agregar
-        String idDespuesDe = request.getParameter("idDespuesDe"); // Obtén la id después de la cual agregar
-
-        // Realizar el cast de la fecha
-        Date fechaVencer = null;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        ServletContext context = getServletContext();
+        String nombre = request.getParameter("usuario");
+        
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            fechaVencer = dateFormat.parse(fecha);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            instancia = MetSerializacion.lecturaTarea(context);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SvAcciones.class.getName()).log(Level.SEVERE, null, ex);
         }
+        String edit = request.getParameter("edicion");
+        int ni=Integer.parseInt( request.getParameter("niEdicion"));
+        
+        switch(edit){
+            case"newtitule":
+                String titulo = request.getParameter("tituloNuevo"); 
+                instancia.tituloEdit(ni, titulo);
+                break;
+            case "newdesc":
+                String descripcion = request.getParameter("descripcionNueva"); 
+               instancia.descripcionEdit(ni, descripcion);
+                break;
+            case "newfecha":
+                String fechaEdicion = request.getParameter("fechaNueva");
 
-        // Obtén la lista actualizada desde la sesión
-        HttpSession session = request.getSession();
-        MetodosTabla listaTareas = (MetodosTabla) session.getAttribute("listaTareas");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date fecha = null;
 
-        if (listaTareas == null) {
-            listaTareas = new MetodosTabla();
-            // Guárdala en la sesión
-            session.setAttribute("listaTareas", listaTareas);
+                try {
+                    fecha = sdf.parse(fechaEdicion);
+                } catch (ParseException e) {
+                    e.printStackTrace(); // Manejo de error en caso de que la fecha no sea válida
+                };
+                instancia.fechaEdit(ni, fecha);
+                break;
         }
-
-        // Verifica si ya existe una tarea con el mismo ID
-        if (listaTareas.tareaConNiExiste(Integer.parseInt(ni))) {
-            // Tarea con el mismo ID ya existe, muestra una alerta
-            request.setAttribute("tareaExistente", true);
-
-            // Redirige nuevamente a la página tareas.jsp
-            RequestDispatcher dispatcher = request.getRequestDispatcher("tareas.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            Tabla nuevaTarea = new Tabla(Integer.parseInt(ni), titulo, descripcion, fechaVencer);
-
-            if (null == posicion) {
-                // Por defecto o si se selecciona "primero", agregar al comienzo
-                listaTareas.agregarInicio(nuevaTarea);
-            } else {
-                switch (posicion) {
-                    case "ultimo":
-                        // Agregar la tarea al final de la lista
-                        listaTareas.agregarFinal(nuevaTarea);
-                        break;
-                    case "antesDe":
-                        if (idAntesDe != null && !idAntesDe.isEmpty()) {
-                            // Agregar la tarea antes de la tarea con la ID especificada
-                            listaTareas.agregarAntes(Integer.parseInt(idAntesDe), nuevaTarea);
-                        } else {
-                            // Si no se proporciona una ID antes de la cual agregar, agregar al comienzo
-                            listaTareas.agregarInicio(nuevaTarea);
-                        }
-                        break;
-                    case "despuesDe":
-                        if (idDespuesDe != null && !idDespuesDe.isEmpty()) {
-                            // Agregar la tarea después de la tarea con la ID especificada
-                            listaTareas.agregarDespues(Integer.parseInt(idDespuesDe), nuevaTarea);
-                        } else {
-                            // Si no se proporciona una ID después de la cual agregar, agregar al final
-                            listaTareas.agregarFinal(nuevaTarea);
-                        }
-                        break;
-                    default:
-                        // Por defecto o si se selecciona "primero", agregar al comienzo
-                        listaTareas.agregarInicio(nuevaTarea);
-                        break;
-                }
-            }
-
-            // Guarda la tarea en el archivo
-            MetodosTabla.guardarTarea(listaTareas, getServletContext());
-
-            // Después de agregar una tarea exitosamente en tu servlet
-            request.setAttribute("registroExitoso", true);
-
-            // Redirige a la página tareas.jsp con el parámetro "registroExitoso"
-            response.sendRedirect("Tareas.jsp?registroExitoso=true");
-        }
+                
+        MetSerializacion.ingresarArchivo(instancia, context);
+        
+        response.sendRedirect("Tareas.jsp?usuario="+nombre);
+        
     }
-
 
    
     @Override
