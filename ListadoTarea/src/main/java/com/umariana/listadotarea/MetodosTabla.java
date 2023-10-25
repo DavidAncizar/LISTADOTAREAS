@@ -200,7 +200,7 @@ public class MetodosTabla {
 
         return tablaHTML.toString();
     }
-  public boolean tareaConNiExiste(int ni) {
+  public boolean tareaExiste(int ni) {
         Nodo actual = cabeza;
 
         while (actual != null) {
