@@ -129,44 +129,7 @@
                     </thead>    
                      <!-- Se coloca el contenido de la tabla -->
                     <tbody>
-                      <%MetodosTabla tareas = (MetodosTabla) session.getAttribute("listaTareas");
-                        
-                        if (tareas != null) {
-                            MetodosTabla.Nodo current = tareas.cabeza;
-                            while (current != null) {
-                    %>
-                    <tr>
-                        <td><%= current.tarea.getNi()%></td>
-                        <td><%= current.tarea.getTitulo()%></td>
-                        <td><%= current.tarea.getDescripcion()%></td>
-                        <td><%= new SimpleDateFormat("yyyy-MM-dd").format(current.tareaG.getFechaVencer())%></td>
-                        <td>
-                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tareaModal"
-                               onclick="showTareaDetails(<%= current.tareaG.getNi()%>, '<%= current.tareaG.getTitulo()%>', '<%= current.tarea.getDescripcion()%>', '<%= new SimpleDateFormat("yyyy-MM-dd").format(current.tarea.getFechaVencer())%>')">
-                                <i class="fas fa-eye"></i> </a>
-
-                            <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editarModal"
-                               data-id="<%= current.tarea.getNi()%>"
-                               data-titulo="<%= current.tarea.getTitulo()%>"
-                               data-descripcion="<%= current.tarea.getDescripcion()%>"
-                               data-fecha="<%= new SimpleDateFormat("yyyy-MM-dd").format(current.tareaG.getFechaVencer())%>">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-
-                            <a href="#" class="btn btn-danger" onclick="eliminarTarea(<%= current.tareaG.getNi()%>)"><i class="fas fa-trash-alt"></i></a>
-
-                        </td>
-                    </tr>
-                    <%
-                                current = current.siguiente;
-                            }
-                        } else {
-                            out.println("No hay tareas disponibles.");
-                        }
-                    %> 
-
-                    
-                    
+                   
                    </tbody>
                 </table>
             </div>

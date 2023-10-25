@@ -4,8 +4,6 @@
  */
 package servlets;
 
-
-
 import com.umariana.listadotarea.MetodosTabla;
 import com.umariana.listadotarea.Tabla;
 import java.io.IOException;

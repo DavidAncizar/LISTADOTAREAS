@@ -16,7 +16,7 @@ public class MetPersistencia {
         public static void datosArchivo(ArrayList<usuario> nUsuario, ServletContext context) throws FileNotFoundException {
 
         // Ubicación del archivo de datos
-        String ruta = "/datos/usuariosGuardados.txt";
+        String ruta = "usuariosGuardados.txt";
         String rutaFinal = context.getRealPath(ruta);
         File archivo = new File(rutaFinal);
 
@@ -36,7 +36,7 @@ public class MetPersistencia {
           public static void lecturaArchivo (ArrayList<usuario> nUsuario, ServletContext context) throws FileNotFoundException, IOException {
 
         // Ubicación del archivo de datos
-        String rutaRelativa = "/datos/usuariosGuardados.txt";
+        String rutaRelativa = "usuariosGuardados.txt";
         String rutaAbsoluta = context.getRealPath(rutaRelativa);
         File archivo = new File(rutaAbsoluta);
 
