@@ -13,3 +13,6 @@ contraseña: 123
 nombre: 999
 cedula: 999
 contraseÃ±a: 999
+nombre: ancizar
+cedula: 123
+contraseña: 123
