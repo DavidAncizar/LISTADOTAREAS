@@ -138,3 +138,10 @@
         modal.find('#tarea-fecha').text(fecha);
     }
 </script>
+<script>
+    function eliminarTarea(ni) {
+        if (confirm("¿Estas seguro de que quieres eliminar la tarea?")) {
+            location.href = "SvAcciones?tipo=delete&ni=" + ni;
+        }
+    }
+</script>

@@ -33,9 +33,31 @@ public class SvAcciones extends HttpServlet {
     //FALTA ARREGLAR DO GET
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
-           
+            String tipo = request.getParameter("tipo");
+        if (tipo != null && tipo.equals("delete")) {
+            String niToDelete = request.getParameter("ni");
+            if (niToDelete != null && !niToDelete.isEmpty()) {
+                HttpSession session = request.getSession();
+                MetodosTabla tareas = (MetodosTabla) session.getAttribute("tareas");
+
+                if (tareas != null) {
+                    try {
+                        String ni = niToDelete;
+                        tareas.eliminarTarea(ni);
+                        // Guarda la lista actualizada en el archivo
+                        MetodosTabla.guardarTabla(tareas, getServletContext());
+
+                        // Agrega un atributo para indicar la eliminación exitosa
+                        session.setAttribute("tareaEliminada", true);
+                    } catch (NumberFormatException e) {
+                        // Maneja la excepción si no se proporciona un ID válido
+                        e.printStackTrace();
+                    }
+                }
+            }
         
 
+    }
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
