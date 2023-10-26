@@ -76,12 +76,12 @@ public class MetodosTabla {
      * tarea.
      * @param tarea La tarea que se va a agregar.
      */
-    public void agregarAntesDe(int ni, Tabla nTarea) {
+    public void agregarAntesDe(String ni, Tabla nTarea) {
         if (cabeza == null) {
             // Puedes manejar esto de alguna manera, por ejemplo, lanzar una excepción o manejar el caso especial.
             // throw new NoExisteException(id);
             return;
-        } else if (ni == cabeza.nTarea.getNi()) {
+        } else if (ni.equals(cabeza.nTarea.getNi())) {
             Nodo nuevoNodo = new Nodo(nTarea);
             nuevoNodo.siguiente = cabeza;
             cabeza = nuevoNodo;
@@ -106,7 +106,7 @@ public class MetodosTabla {
      * tarea.
      * @param tarea La tarea que se va a agregar.
      */
-    public void agregarDespuesDe(int ni, Tabla nTarea) {
+    public void agregarDespuesDe(String ni, Tabla nTarea) {
         Nodo anterior = buscarNi(ni);
 
         if (anterior == null) {
@@ -127,7 +127,7 @@ public class MetodosTabla {
      * @return La tarea con el id especificado. Si la tarea no existe, se
      * retorna null.
      */
-    public Nodo buscarNi(int ni) {
+    public Nodo buscarNi(String ni) {
         Nodo actual = cabeza;
         while (actual != null && actual.nTarea.getNi() != ni) {
             actual = actual.siguiente;
@@ -143,7 +143,7 @@ public class MetodosTabla {
      * @return La tarea anterior a la tarea con el id dado. Se retorna null si
      * la tarea con el id dado no existe o si es la primera de la lista.
      */
-    public Nodo localizarNi(int ni) {
+    public Nodo localizarNi(String ni) {
         Nodo anterior = null;
         Nodo actual = cabeza;
 
@@ -156,7 +156,7 @@ public class MetodosTabla {
     }
 
     //Metodo que elimina una tarea
-    public void eliminarTarea(int ni) {
+    public void eliminarTarea(String ni) {
         if (cabeza == null) {
             System.out.println("La lista de tareas está vacía, no se pudo eliminar la tarea con id: " + ni);
             return;
@@ -178,7 +178,7 @@ public class MetodosTabla {
     }
 
     // Este metodo verifica la existencia de una tarea con una ID
-    public boolean tareaExistente(int ni) {
+    public boolean tareaExistente(String ni) {
         Nodo actual = cabeza;
 
         while (actual != null) {
@@ -194,7 +194,7 @@ public class MetodosTabla {
     
     
     //Metodo que permite editar los datos de la Tarea con excepcion de la ID
-    public void editarTarea(int ni, String nTitulo, String nDescripcion, String nFecha) {
+    public void editarTarea(String ni, String nTitulo, String nDescripcion, String nFecha) {
         Nodo tareaExistente = buscarNi(ni);
 
         if (tareaExistente != null) {
@@ -252,7 +252,7 @@ public class MetodosTabla {
             while ((line = br.readLine()) != null) {
                 String[] atributos = line.split(";");
                 if (atributos.length == 4) {
-                    int ni = Integer.parseInt(atributos[0]);
+                    String ni = atributos[0];
                     String titulo = atributos[1];
                     String descripcion = atributos[2];
                     String fechaVStr = atributos[3];

@@ -69,7 +69,7 @@ public class SvAcciones extends HttpServlet {
         }
 
         // Verifica si ya existe una tarea con el mismo ID
-        if (tareas.tareaExistente(Integer.parseInt(ni))) {
+        if (tareas.tareaExistente(ni)) {
             // Tarea con el mismo ID ya existe, muestra una alerta
             request.setAttribute("tareaExistente", true);
 
@@ -77,7 +77,7 @@ public class SvAcciones extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("Tareas.jsp");
             dispatcher.forward(request, response);
         } else {
-            Tabla nuevaTarea = new Tabla(Integer.parseInt(ni), titulo, descripcion, fechaVencimiento);
+            Tabla nuevaTarea = new Tabla(ni , titulo, descripcion, fechaVencimiento);
 
             if (null == posicion) {
                 // Por defecto o si se selecciona "primero", agregar al comienzo
@@ -91,7 +91,7 @@ public class SvAcciones extends HttpServlet {
                     case "antesDe":
                         if (niAntesDe != null && !niAntesDe.isEmpty()) {
                             // Agregar la tarea antes de la tarea con la ID especificada
-                            tareas.agregarAntesDe(Integer.parseInt(niAntesDe), nuevaTarea);
+                            tareas.agregarAntesDe(niAntesDe, nuevaTarea);
                         } else {
                             // Si no se proporciona una ID antes de la cual agregar, agregar al comienzo
                             tareas.agregarInicio(nuevaTarea);
@@ -100,7 +100,7 @@ public class SvAcciones extends HttpServlet {
                     case "despuesDe":
                         if (niDespuesDe != null && !niDespuesDe.isEmpty()) {
                             // Agregar la tarea después de la tarea con la ID especificada
-                            tareas.agregarDespuesDe(Integer.parseInt(niDespuesDe), nuevaTarea);
+                            tareas.agregarDespuesDe(niDespuesDe, nuevaTarea);
                         } else {
                             // Si no se proporciona una ID después de la cual agregar, agregar al final
                             tareas.agregarFinal(nuevaTarea);

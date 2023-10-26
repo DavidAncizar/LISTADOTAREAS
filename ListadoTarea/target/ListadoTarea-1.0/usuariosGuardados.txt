@@ -16,3 +16,9 @@ contraseña: 999
 nombre: ancizar
 cedula: 123
 contrase�a: 123
+nombre: anzi
+cedula: 123
+contraseña: 123
+nombre: 333
+cedula: 333
+contraseña: 333
