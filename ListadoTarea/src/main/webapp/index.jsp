@@ -67,7 +67,159 @@
 
 
     </section>
+   <%
+    //Llamamos variable de registrado para obtener banderas de si fue registrado o no el usuario
+    String registrado = (String) request.getAttribute("registrado");
 
+    //En caso de que si se registra exitosamente
+    if (registrado != null && registrado.equals("si")) {
+
+%>
+<!--Llama metodo de JS para mostrar la modal de registrado existosamente-->
+<script>
+    $(document).ready(function () {
+        usuarioR();
+    });
+</script>
+<%    } //En caso de que no se registra exitosamente
+else if (registrado != null && registrado.equals("no")) {
+%>
+<!--Llama metodo de JS para mostrar la modal de NO registrado existosamente-->
+<script>
+    $(document).ready(function () {
+        usuarioNoR();
+    });
+</script>
+<%
+    }
+    //Llamamos variable para saber si los datos de ingreso son validos
+    String valido = request.getParameter("valido");
+    //En caso de no ser validos
+    if (valido != null && valido.equals("false")) {
+%>
+<!--Llama metodo de JS para mostrar la modal de NO ingresado existosamente-->
+<script>
+    $(document).ready(function () {
+        usuarioNoI();
+    });
+</script>
+<%
+    }
+    // Elimina los atributos "registrado" e "ingresar" de la solicitud
+    request.removeAttribute("registrado");
+    request.removeAttribute("valido");
+%>
+
+<!-- Modal registro exitoso-->
+<div class="modal fade" id="registrado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="registradoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2>Usuario registrado exitosamente</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+<!-- Script para llamar los toastr. BASADO: https://codeseven.github.io/toastr/demo.html
+    BASADO: https://getbootstrap.com/docs/5.3/components/toasts/-->
+<script>
+
+    const container = document.getElementById('container');
+    const registerBtn = document.getElementById('register');
+    const loginBtn = document.getElementById('login');
+
+    registerBtn.addEventListener('click', () => {
+        container.classList.add("active");
+    });
+
+    loginBtn.addEventListener('click', () => {
+        container.classList.remove("active");
+    });    function usuarioR() {
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "form-container",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+
+
+
+        // Mostrar una notificación Toastr de error
+        toastr.success('Se ha registrado exitosamente!', 'Registrado');
+    }
+
+    function usuarioNoI() {
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "form-container",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        // Mostrar una notificación Toastr de error
+        toastr.warning('La cedula o contraseña no son correctas', 'No ha podido ingresar');
+    }
+
+
+    function usuarioNoR() {
+        // Configurar opciones Toastr
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "form-container",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        // Mostrar una notificación Toastr de error
+        toastr.error('Ya existe un usuario registrado con esa cedula', 'Error');
+    }
+
+</script>
     <!-- Section: Design Block -->
+    
     
     <%@include file= "diseño/footer.jsp" %>

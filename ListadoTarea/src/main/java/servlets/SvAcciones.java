@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,31 +23,36 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "SvAcciones", urlPatterns = {"/SvAcciones"})
 public class SvAcciones extends HttpServlet {
- //Creamos una instancia para llamar los metodos de la clase "MetodosTabla" que no sean tipo Static.
-         private MetodosTabla tareas;
-        
-   public void init() throws ServletException {
-        // Inicializa la lista de tareas al cargar el servlet
-        tareas = MetodosTabla.leerTabla(getServletContext());
+
+
+    private MetodosTabla listaTareas;
+
+    @Override
+    public void init() throws ServletException {
+        try {
+            // Inicializa la lista de tareas al cargar el servlet
+            listaTareas = MetodosTabla.leerTarea(getServletContext());
+        } catch (ParseException ex) {
+            Logger.getLogger(SvAcciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-   
-    //FALTA ARREGLAR DO GET
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
-           String tipo = request.getParameter("tipo");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String tipo = request.getParameter("tipo");
         if (tipo != null && tipo.equals("delete")) {
-            String niToDelete = request.getParameter("id");
-            if (niToDelete != null && !niToDelete.isEmpty()) {
+            String idToDelete = request.getParameter("id");
+            if (idToDelete != null && !idToDelete.isEmpty()) {
                 HttpSession session = request.getSession();
-                MetodosTabla tareas = (MetodosTabla) session.getAttribute("tareas");
+                MetodosTabla listaTareas = (MetodosTabla) session.getAttribute("listaTareas");
 
-                if (tareas != null) {
+                if (listaTareas != null) {
                     try {
-                        String ni = niToDelete;
-                        tareas.eliminarTarea(ni);
+                        int id = Integer.parseInt(idToDelete);
+                        listaTareas.eliminarTarea(id);
                         // Guarda la lista actualizada en el archivo
-                        MetodosTabla.guardarTabla(tareas, getServletContext());
+                        MetodosTabla.guardarTarea(listaTareas,getServletContext());
 
                         // Agrega un atributo para indicar la eliminación exitosa
                         session.setAttribute("tareaEliminada", true);
@@ -58,87 +65,84 @@ public class SvAcciones extends HttpServlet {
         }
         // Después de eliminar una tarea con éxito en tu servlet
         response.sendRedirect("Tareas.jsp");
-        
-
     }
+
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String ni = request.getParameter("ni");
         String titulo = request.getParameter("titulo");
         String descripcion = request.getParameter("descripcion");
-        String fecha = request.getParameter("fecha");
+        String fechaVencer = request.getParameter("fecha");
         String posicion = request.getParameter("posicion"); // Obtén el valor del radio button
-        String niAntesDe = request.getParameter("niAntesDe"); // Obtén la id antes de la cual agregar
-        String niDespuesDe = request.getParameter("niDespuesDe"); // Obtén la id después de la cual agregar
+        String niAntesDe = request.getParameter("idAntesDe"); // Obtén la id antes de la cual agregar
+        String niDespuesDe = request.getParameter("idDespuesDe"); // Obtén la id después de la cual agregar
 
         // Realizar el cast de la fecha
         Date fechaVencimiento = null;
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            fechaVencimiento = dateFormat.parse(fecha);
+            fechaVencimiento = dateFormat.parse(fechaVencer);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         // Obtén la lista actualizada desde la sesión
         HttpSession session = request.getSession();
-        MetodosTabla tareas = (MetodosTabla) session.getAttribute("tareas");
+        MetodosTabla listaTareas = (MetodosTabla) session.getAttribute("listaTareas");
 
-        if (tareas == null  ) {
-            tareas = new MetodosTabla();
+        if (listaTareas == null) {
+            listaTareas = new MetodosTabla();
             // Guárdala en la sesión
-            session.setAttribute("tareas", tareas);
+            session.setAttribute("listaTareas", listaTareas);
         }
 
         // Verifica si ya existe una tarea con el mismo ID
-        if (tareas.tareaExistente(ni)) {
+        if (listaTareas.tareaExiste(Integer.parseInt(ni))) {
             // Tarea con el mismo ID ya existe, muestra una alerta
             request.setAttribute("tareaExistente", true);
 
             // Redirige nuevamente a la página tareas.jsp
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Tareas.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("tareas.jsp");
             dispatcher.forward(request, response);
         } else {
-            Tabla nuevaTarea = new Tabla(ni , titulo, descripcion, fechaVencimiento);
+            Tabla nuevaTarea = new Tabla(Integer.parseInt(ni), titulo, descripcion, fechaVencimiento);
 
             if (null == posicion) {
                 // Por defecto o si se selecciona "primero", agregar al comienzo
-                tareas.agregarInicio(nuevaTarea);
+                listaTareas.inicioNodo(nuevaTarea);
             } else {
                 switch (posicion) {
                     case "ultimo":
                         // Agregar la tarea al final de la lista
-                        tareas.agregarFinal(nuevaTarea);
+                        listaTareas.agregarFinal(nuevaTarea);
                         break;
                     case "antesDe":
                         if (niAntesDe != null && !niAntesDe.isEmpty()) {
                             // Agregar la tarea antes de la tarea con la ID especificada
-                            tareas.agregarAntesDe(niAntesDe, nuevaTarea);
+                            listaTareas.agregarAntes(Integer.parseInt(niAntesDe), nuevaTarea);
                         } else {
                             // Si no se proporciona una ID antes de la cual agregar, agregar al comienzo
-                            tareas.agregarInicio(nuevaTarea);
+                            listaTareas.inicioNodo(nuevaTarea);
                         }
                         break;
                     case "despuesDe":
                         if (niDespuesDe != null && !niDespuesDe.isEmpty()) {
                             // Agregar la tarea después de la tarea con la ID especificada
-                            tareas.agregarDespuesDe(niDespuesDe, nuevaTarea);
+                            listaTareas.agregarDespues(Integer.parseInt(niDespuesDe), nuevaTarea);
                         } else {
                             // Si no se proporciona una ID después de la cual agregar, agregar al final
-                            tareas.agregarFinal(nuevaTarea);
+                            listaTareas.agregarFinal(nuevaTarea);
                         }
                         break;
                     default:
                         // Por defecto o si se selecciona "primero", agregar al comienzo
-                        tareas.agregarInicio(nuevaTarea);
+                        listaTareas.inicioNodo(nuevaTarea);
                         break;
                 }
             }
 
             // Guarda la tarea en el archivo
-            MetodosTabla.guardarTabla(tareas, getServletContext());
+            MetodosTabla.guardarTarea(listaTareas, getServletContext());
 
             // Después de agregar una tarea exitosamente en tu servlet
             request.setAttribute("registroExitoso", true);
@@ -147,11 +151,5 @@ public class SvAcciones extends HttpServlet {
             response.sendRedirect("Tareas.jsp?registroExitoso=true");
         }
     }
-        
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }
-
 }
+

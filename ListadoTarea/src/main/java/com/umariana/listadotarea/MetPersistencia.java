@@ -16,7 +16,7 @@ public class MetPersistencia {
         public static void datosArchivo(ArrayList<usuario> nUsuario, ServletContext context) throws FileNotFoundException {
 
         // Ubicación del archivo de datos
-        String ruta = "/data/usuariosGuardados.txt";
+        String ruta = "usuariosGuardados.txt";
         String rutaFinal = context.getRealPath(ruta);
         File archivo = new File(rutaFinal);
 
@@ -27,16 +27,16 @@ public class MetPersistencia {
                 String Datos = UsuariosG.getCedula() + "," +  UsuariosG.getNombre() + "," + UsuariosG.getContrasenia();
                 pluma.println(Datos);
             }
-            //Excepcion común
+            //Excepcion 
         } catch (FileNotFoundException e) {
-            System.out.println("No se ha econtrado ningun archivo con los datos :(.");
+            System.out.println("No se ha econtrado ningun archivo con los datos D:.");
         }
     
 }
           public static void lecturaArchivo (ArrayList<usuario> nUsuario, ServletContext context) throws FileNotFoundException, IOException {
 
         // Ubicación del archivo de datos
-        String rutaRelativa = "/data/usuariosRegistrados.txt";
+        String rutaRelativa = "usuariosGuardados.txt";
         String rutaAbsoluta = context.getRealPath(rutaRelativa);
         File archivo = new File(rutaAbsoluta);
 
@@ -53,9 +53,10 @@ public class MetPersistencia {
                 String contrasenia = datos[2].trim();
 
                 // Se crea y se enlista los datos ingresados
-                usuario usuario = new usuario(cedula , nombre, contrasenia);
-                nUsuario.add(usuario);
+                usuario usuarioo = new usuario(nombre, Integer.parseInt(cedula) , contrasenia);
+                nUsuario.add(usuarioo);
             }
+        
 
         } catch (FileNotFoundException e) {
             System.out.println("No se ha econtrado ningun archivo con los datos :(.");
