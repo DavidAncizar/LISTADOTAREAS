@@ -9,9 +9,6 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.umariana.listadotarea.MetodosTabla"%>
 <%@include file= "diseño/header.jsp" %>
-<%String usuario = request.getParameter("usuario");%>
-<!-- header estilado -->
-
 <div> 
     <div class="card text-center">
         <div class="card-header">
@@ -136,5 +133,13 @@
         modal.find('#tarea-titulo').text(titulo);
         modal.find('#tarea-descripcion').text(descripcion);
         modal.find('#tarea-fecha').text(fecha);
+    }
+</script>
+<script>
+    function eliminarTarea(ni) {
+        if (confirm("¿Estas seguro de eliminar la tarea?")) {
+            // Si se confirma la eliminación, redirige al servlet para eliminar la tarea
+            location.href = "SvAcciones?tipo=delete&ni=" + ni;
+        }
     }
 </script>
