@@ -1,0 +1,3 @@
+nombre: ancizar
+cedula: 123
+contraseña: 123

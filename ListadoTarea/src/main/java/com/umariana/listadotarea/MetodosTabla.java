@@ -216,7 +216,7 @@ public class MetodosTabla {
     // Método para guardar la lista en un archivo de texto
     public static void guardarTabla(MetodosTabla listaActualizada, ServletContext context) {
         // Ruta relativa
-        String rutaRelativa = "tareas.txt";
+        String rutaRelativa = "/data/nuevaTareas.txt";
 
         // Ruta absoluta
         String rutaAbsoluta = context.getRealPath(rutaRelativa);
@@ -239,7 +239,7 @@ public class MetodosTabla {
     // Método para leer una lista desde un archivo de texto
     public static MetodosTabla leerTabla(ServletContext context) {
         // Ruta relativa
-        String rutaRelativa = "tareas.txt";
+        String rutaRelativa = "/data/nuevaTareas.txt";
 
         // Ruta absoluta
         String rutaAbsoluta = context.getRealPath(rutaRelativa);
