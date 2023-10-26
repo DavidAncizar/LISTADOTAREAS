@@ -28,7 +28,7 @@ public class metodos {
      */
     //Guardar usuarios creando una ruta con "relativePath"
     public static void leerUsuario(ServletContext context, ArrayList<usuario> nUsuario) throws IOException{
-        String relativePath = "usuariosGuardados.txt";
+        String relativePath = "/data/usuariosGuardados.txt";
         // Crear una ruta global 
         String Path = context.getRealPath(relativePath);
         //Variable de tipo file donde manejamos el archivo en codigo
@@ -43,7 +43,7 @@ public class metodos {
          pluma.close();
     }
     public static  void cargarUsuario(ServletContext context ) {
-     String relativePath =  "usuariosGuardados.txt";
+     String relativePath =  "/data/usuariosGuardados.txt";
         String Path = context.getRealPath(relativePath);
         File archivo = new File(Path);
         
