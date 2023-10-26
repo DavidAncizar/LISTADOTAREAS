@@ -24,9 +24,9 @@ import javax.servlet.ServletContext;
  * @author cuati
  */
 public class metodos {
+   
    public static ArrayList<usuario> nUsuario = new ArrayList<>();
-
-
+    
     /**
      *
      * @param contexto
@@ -44,21 +44,22 @@ public class metodos {
             pluma.println("nombre: " + objUsuario.getNombre());
             pluma.println("cedula: " + objUsuario.getCedula());
             pluma.println("contraseña: " + objUsuario.getContrasenia());
-
+           
         }
          pluma.close();
     }
-   
-    public static  void cargarUsuario(ServletContext context, ArrayList<usuario> nUsuario ) {
+    public static  void cargarUsuario(ServletContext context ) {
      String relativePath =  "usuariosGuardados.txt";
-     String Path = context.getRealPath(relativePath);
+        String Path = context.getRealPath(relativePath);
         File archivo = new File(Path);
+        
+
         if (archivo.length()!=0) {
             try (BufferedReader br = new BufferedReader(new FileReader(archivo)) ) {
                 String nombre= null;
                 String cedula=null;
                 String contrasenia=null;
-
+                 
                 String leer;
                 while ((leer = br.readLine()) != null) {
                     if (leer.startsWith("nombre:")) {
@@ -77,29 +78,28 @@ public class metodos {
                         cedula = null;
                         contrasenia = null;
                     }
-
+                
             }
          } catch (Exception e) {
 
                 e.getMessage();
-         }
-
+            }
+        }     
     }
-    }
-     public static String ValidarUsuario( String nombre, String contrasenia, ServletContext context ) throws IOException{
-              metodos.cargarUsuario(context, nUsuario);
-              for (usuario objUsuario: nUsuario ) {
+           public static String ValidarUsuario( String nombre, String contrasenia, ServletContext context ) throws IOException{
+             cargarUsuario(context);
+        
+             for (usuario objUsuario: nUsuario ) {
               if (objUsuario.getNombre().equals(nombre) && objUsuario.getContrasenia().equals(contrasenia)) {
                 System.out.println("Se puede verificar en la consola de esta forma:" + objUsuario.getNombre());
                 return objUsuario.getNombre();
-              }            
-              }
-       return null;
-}
-}           
-          
+            }
+         }
+        return null;
+                
+    }
     
             
-    
+    }
 
 

@@ -13,16 +13,16 @@ import java.io.Serializable;
 public class usuario implements Serializable{
     //declarar variables
     private String nombre;
-    private int cedula;
+    private String cedula;
     private String contrasenia;
 
     public usuario(){ 
     
 }
 //constructor para inicializar los atributos
-    public usuario(String nombre, int  cedula, String contrasenia){
+    public usuario(String nombre,String cedula, String contrasenia){
         this.nombre= nombre;
-        this.cedula = cedula;
+        this.cedula= cedula;
         this.contrasenia = contrasenia;        
     }
 
@@ -30,7 +30,7 @@ public class usuario implements Serializable{
         this.nombre = nombre;
     }
 
-    public void setCedula(int cedula) {
+    public void setCedula(String cedula) {
         this.cedula = cedula;
     }
 
@@ -42,7 +42,7 @@ public class usuario implements Serializable{
         return nombre;
     }
 
-    public int getCedula() {
+    public String getCedula() {
         return cedula;
     }
 

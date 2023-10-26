@@ -41,31 +41,22 @@ public class SvRegis extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          /**
-         * Obtenemos variables
-         */
+        //llamamos los parametros de la clase usuario 
+        String nombre = request.getParameter("nombre");
         String cedula = request.getParameter("cedula");
         String contrasenia = request.getParameter("contrasenia");
-
-        ServletContext context = getServletContext();// Contexto de servlet para obtener la PATH
-
-        /**
-         * Llamamos al metodo para verificar si coincide la cedula y contraseña
-         * con los usuarios guardados
-         */
-        String user = metodos.leerUsuario(Integer.parseInt(cedula), contrasenia, context);
-        // Verificar si ingresa o no 
-        if (user.equals("No encontrado")) {
-
-            request.getRequestDispatcher("index.jsp?valido=" + "false").forward(request, response);// Redirigimos al index con la variable no valida para mostrar mensaje al usuario.
-
-        } else if (!user.equals("No encontrado")) {
-
-            request.getRequestDispatcher("Tareas.jsp?usuario=" + user).forward(request, response);// Redirigimos al login con el nombre de usuario para mostrar el mensaje personalizado.
-        }
-
+        //llamamos todo lo que hay en el context servlet
+        ServletContext context = getServletContext();
+        //objeto en el que llamamos todos los usuarios, creacion de objeto usando el constructor colocando todos los parametros 
+        usuario objUsuario = new usuario (nombre, cedula, contrasenia );
+        //Agregar la lista con el array que hicimos arriba
+        datosUsuario.add(objUsuario);
+        //metodo para leer los usuarios almacenados en el array
+        metodos.leerUsuario(context, datosUsuario);
+        // redireccionamos a la pagina principal despues de registrar 
+        request.getRequestDispatcher("index.jsp").forward(request, response );
+        
     }
-
         
 
     @Override
